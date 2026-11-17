@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日大赛反差-热门赛事与选手状态观察</title>
+<meta name="description" content="每日大赛反差聚焦赛事成绩与选手状态之间的落差，整理多平台赛果、榜单变动、复盘案例与观赛指南，帮助读者看清规则差异与临场变量，理清每日大赛反差背后的判断逻辑与常见误区。">
+<meta name="keywords" content="每日大赛反差">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f2436'/%3E%3Cpath d='M14 44 L26 20 L36 36 L44 26 L50 44 Z' fill='%23f2b544'/%3E%3Ccircle cx='44' cy='18' r='5' fill='%2357c7c1'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#0f2436;
+  --ink-soft:#33495c;
+  --paper:#f6f3ec;
+  --card:#ffffff;
+  --line:#d9d3c6;
+  --brand:#0f2436;
+  --brand-2:#14465c;
+  --accent:#f2b544;
+  --accent-soft:#fdf2d8;
+  --teal:#2e8b85;
+  --teal-soft:#e2f1ef;
+  --warn:#a8452c;
+  --warn-soft:#f8e7e1;
+  --muted:#6b7c8a;
+  --radius-s:6px;
+  --radius-m:12px;
+  --radius-l:20px;
+  --shadow-s:0 1px 2px rgba(15,36,54,.08);
+  --shadow-m:0 6px 18px rgba(15,36,54,.08);
+  --shadow-l:0 14px 36px rgba(15,36,54,.12);
+  --space-1:6px;
+  --space-2:10px;
+  --space-3:16px;
+  --space-4:24px;
+  --space-5:36px;
+  --space-6:56px;
+  --fs-h1:clamp(1.7rem,4.4vw,2.9rem);
+  --fs-h2:clamp(1.3rem,2.6vw,1.75rem);
+  --fs-h3:1.08rem;
+  --fs-body:1rem;
+  --fs-s:0.875rem;
+  --fs-xs:0.78rem;
+  --font:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --stick-offset:132px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:var(--fs-body);
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+  outline:3px solid var(--teal);
+  outline-offset:2px;
+  border-radius:4px;
+}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3,h4{line-height:1.3;margin:0 0 var(--space-2)}
+h2{font-size:var(--fs-h2)}
+h3{font-size:var(--fs-h3)}
+p{margin:0 0 var(--space-3)}
+section[id]{scroll-margin-top:var(--stick-offset)}
+
+/* ---------- 公告条 ---------- */
+.announce{
+  background:var(--brand);
+  color:#e9f1f4;
+  font-size:var(--fs-s);
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.announce .wrap{
+  display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap;
+  min-height:40px;padding-block:6px;
+}
+.announce .tag{
+  background:var(--accent);color:var(--ink);
+  font-weight:700;font-size:var(--fs-xs);
+  padding:2px 8px;border-radius:999px;letter-spacing:.06em;white-space:nowrap;
+}
+.announce strong{color:#fff;font-weight:600}
+.announce a{color:var(--accent);margin-left:auto;white-space:nowrap}
+.announce a:hover{color:#ffd77e}
+
+/* ---------- 页头 ---------- */
+.site-head{
+  position:sticky;top:0;z-index:60;
+  background:rgba(246,243,236,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow-s);
+}
+.head-inner{
+  display:flex;align-items:center;gap:var(--space-3);
+  min-height:64px;padding-block:8px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand svg{width:38px;height:38px;flex-shrink:0}
+.brand-text{font-weight:800;font-size:1.05rem;letter-spacing:.02em;color:var(--ink)}
+.brand-text small{display:block;font-weight:500;font-size:var(--fs-xs);color:var(--muted);letter-spacing:.12em}
+.main-nav{display:flex;gap:2px;flex-wrap:wrap;margin-left:var(--space-2)}
+.main-nav a{
+  font-size:var(--fs-s);color:var(--ink-soft);
+  padding:6px 10px;border-radius:var(--radius-s);
+}
+.main-nav a:hover{background:var(--accent-soft);color:var(--ink);text-decoration:none}
+.head-tools{display:flex;align-items:center;gap:8px;margin-left:auto}
+.search-box{position:relative;display:flex;align-items:center}
+.search-box input{
+  width:190px;max-width:46vw;
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:999px;padding:7px 34px 7px 14px;font-size:var(--fs-s);font-family:inherit;
+}
+.search-box button{
+  position:absolute;right:3px;top:50%;transform:translateY(-50%);
+  border:0;background:var(--brand);color:#fff;border-radius:999px;
+  width:28px;height:28px;display:grid;place-items:center;cursor:pointer;
+}
+.search-box button svg{width:14px;height:14px}
+.search-feedback{font-size:var(--fs-xs);color:var(--warn);width:100%;display:none;padding-top:4px}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:#fff;color:var(--ink);
+  border-radius:var(--radius-s);padding:7px 12px;font-size:var(--fs-s);cursor:pointer;font-family:inherit;
+}
+.head-cta{
+  background:var(--teal);color:#fff;font-size:var(--fs-s);font-weight:600;
+  padding:8px 14px;border-radius:999px;white-space:nowrap;
+}
+.head-cta:hover{background:#256f6a;text-decoration:none;color:#fff}
+
+/* 搜索高亮 */
+.hit{background:#ffe9ae;box-shadow:0 0 0 2px #ffe9ae;border-radius:3px}
+.search-empty{
+  margin:var(--space-3) auto 0;width:min(1180px,100% - 32px);
+  background:var(--warn-soft);border:1px solid #e3b9ab;color:var(--warn);
+  border-radius:var(--radius-m);padding:10px 16px;font-size:var(--fs-s);display:none;
+}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#0f2436 0%,#14465c 58%,#1c5c63 100%);
+  color:#eef4f5;
+  border-bottom:4px solid var(--accent);
+}
+.hero .wrap{padding-block:var(--space-6) var(--space-5);position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--space-5);align-items:center}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:var(--fs-xs);letter-spacing:.18em;color:var(--accent);
+  border:1px solid rgba(242,181,68,.5);border-radius:999px;padding:4px 12px;margin-bottom:18px;
+}
+.hero h1{
+  font-size:var(--fs-h1);color:#fff;letter-spacing:.01em;margin-bottom:14px;
+}
+.hero-lead{
+  font-size:1.02rem;color:#c6d8dd;max-width:36em;margin-bottom:var(--space-4);
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:var(--space-5)}
+.btn{
+  display:inline-block;padding:11px 22px;border-radius:999px;font-weight:600;font-size:var(--fs-s);
+}
+.btn-primary{background:var(--accent);color:var(--ink)}
+.btn-primary:hover{background:#ffce6b;text-decoration:none}
+.btn-ghost{border:1px solid rgba(255,255,255,.45);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.hero-stats{display:flex;gap:var(--space-4);flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.18);padding-top:var(--space-3)}
+.hero-stats div{min-width:96px}
+.hero-stats b{display:block;font-size:1.45rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.hero-stats span{font-size:var(--fs-xs);color:#a9c2c8;letter-spacing:.06em}
+.hero-art{position:relative;min-height:280px}
+.hero-art svg{width:100%;height:auto;filter:drop-shadow(0 12px 30px rgba(0,0,0,.35))}
+.hero-art .art-note{
+  position:absolute;bottom:-6px;left:0;right:0;text-align:center;
+  font-size:var(--fs-xs);color:#9fbcc2;letter-spacing:.1em;
+}
+
+/* ---------- 布局 ---------- */
+.layout{
+  display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--space-5);
+  padding-block:var(--space-5);
+  align-items:start;
+}
+main{min-width:0}
+.sidebar{position:sticky;top:calc(var(--stick-offset) + 8px);display:grid;gap:var(--space-3)}
+.side-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:var(--space-3);box-shadow:var(--shadow-s);
+}
+.side-card h3{font-size:var(--fs-s);letter-spacing:.06em;color:var(--muted);text-transform:none;margin-bottom:10px}
+.side-nav{display:grid;gap:2px}
+.side-nav a{
+  display:block;font-size:var(--fs-s);color:var(--ink-soft);
+  padding:6px 10px;border-radius:var(--radius-s);border-left:3px solid transparent;
+}
+.side-nav a:hover{background:var(--accent-soft);text-decoration:none}
+.side-nav a.active{background:var(--teal-soft);border-left-color:var(--teal);color:var(--brand);font-weight:600}
+.side-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.side-list li{font-size:var(--fs-s);display:flex;gap:8px;color:var(--ink-soft)}
+.side-list b{color:var(--teal);font-variant-numeric:tabular-nums}
+
+/* 板块 */
+.panel{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);
+  padding:var(--space-4);margin-bottom:var(--space-4);box-shadow:var(--shadow-s);
+}
+.panel-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:var(--space-3)}
+.panel-head h2{margin:0;font-size:var(--fs-h2)}
+.panel-head .hint{font-size:var(--fs-s);color:var(--muted)}
+.eyebrow{
+  font-size:var(--fs-xs);letter-spacing:.16em;color:var(--teal);font-weight:700;
+  display:block;margin-bottom:4px;
+}
+
+/* 概览 */
+.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3)}
+.ov-item{border:1px solid var(--line);border-radius:var(--radius-m);padding:14px;background:#fbfaf6}
+.ov-item b{display:block;font-size:1.3rem;color:var(--brand-2);font-variant-numeric:tabular-nums}
+.ov-item span{font-size:var(--fs-xs);color:var(--muted)}
+.ov-item p{font-size:var(--fs-s);margin:8px 0 0;color:var(--ink-soft)}
+
+/* 精选卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;
+  background:#fff;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-m)}
+.card img{width:100%;height:150px;object-fit:cover}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-tag{font-size:var(--fs-xs);color:var(--teal);font-weight:700;letter-spacing:.06em}
+.card h3{font-size:1rem;margin:0}
+.card p{font-size:var(--fs-s);color:var(--ink-soft);margin:0}
+.card-meta{margin-top:auto;font-size:var(--fs-xs);color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+
+/* 最新更新 紧凑列表 */
+.updates{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.updates li{
+  display:grid;grid-template-columns:76px 1fr auto;gap:12px;align-items:baseline;
+  padding:11px 2px;border-bottom:1px dashed var(--line);font-size:var(--fs-s);
+}
+.updates time{color:var(--muted);font-variant-numeric:tabular-nums;font-size:var(--fs-xs)}
+.updates a{color:var(--ink);font-weight:600}
+.updates a:hover{color:var(--teal)}
+.updates .badge{font-size:var(--fs-xs);background:var(--accent-soft);color:#8a5b00;border-radius:999px;padding:1px 9px;white-space:nowrap}
+
+/* 分类索引 */
+.index-tags{display:flex;flex-wrap:wrap;gap:10px}
+.index-tags a{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fbfaf6;border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;font-size:var(--fs-s);color:var(--ink-soft);
+}
+.index-tags a:hover{background:var(--teal-soft);border-color:var(--teal);color:var(--brand);text-decoration:none}
+.index-tags em{font-style:normal;color:var(--muted);font-size:var(--fs-xs)}
+
+/* 深度解析 */
+.deep h3{
+  margin-top:var(--space-4);padding-left:12px;border-left:4px solid var(--accent);
+}
+.deep h3:first-of-type{margin-top:0}
+.deep .lead{
+  font-size:1.02rem;color:var(--ink);background:var(--accent-soft);
+  border-left:4px solid var(--accent);padding:14px 16px;border-radius:0 var(--radius-m) var(--radius-m) 0;
+}
+.timeline{list-style:none;margin:var(--space-3) 0;padding:0 0 0 18px;border-left:2px solid var(--line);display:grid;gap:14px}
+.timeline li{position:relative;font-size:var(--fs-s);color:var(--ink-soft)}
+.timeline li::before{
+  content:"";position:absolute;left:-25px;top:7px;width:10px;height:10px;border-radius:50%;
+  background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 2px var(--teal);
+}
+.timeline b{color:var(--ink);display:block}
+.compare{width:100%;border-collapse:collapse;font-size:var(--fs-s);margin:var(--space-3) 0}
+.compare th,.compare td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.compare thead th{background:var(--brand);color:#eef4f5;font-weight:600}
+.compare tbody tr:nth-child(even){background:#fbfaf6}
+.compare td:first-child{font-weight:600;color:var(--brand-2)}
+.quote-card{
+  border:1px solid var(--line);border-left:5px solid var(--teal);
+  background:var(--teal-soft);border-radius:0 var(--radius-m) var(--radius-m) 0;
+  padding:14px 18px;font-size:var(--fs-s);color:var(--ink-soft);margin:var(--space-3) 0;
+}
+.quote-card cite{display:block;margin-top:6px;font-style:normal;font-size:var(--fs-xs);color:var(--muted)}
+
+/* 体验指南 编号步骤 */
+.steps{list-style:none;counter-reset:step;margin:0;padding:0;display:grid;gap:12px}
+.steps li{
+  counter-increment:step;position:relative;padding:12px 14px 12px 56px;
+  background:#fbfaf6;border:1px solid var(--line);border-radius:var(--radius-m);font-size:var(--fs-s);color:var(--ink-soft);
+}
+.steps li::before{
+  content:counter(step);position:absolute;left:14px;top:12px;
+  width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:var(--brand);color:var(--accent);font-weight:700;font-size:var(--fs-s);
+}
+.steps b{display:block;color:var(--ink);margin-bottom:2px}
+
+/* FAQ */
+details{
+  border:1px solid var(--line);border-radius:var(--radius-m);background:#fff;
+  margin-bottom:10px;overflow:hidden;
+}
+details[open]{border-color:var(--teal);box-shadow:var(--shadow-s)}
+summary{
+  cursor:pointer;padding:13px 40px 13px 16px;font-weight:600;font-size:var(--fs-s);
+  position:relative;list-style:none;color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:var(--teal);font-size:1.2rem;font-weight:700;line-height:1;
+}
+details[open] summary::after{content:"−"}
+details .faq-body{padding:0 16px 14px;font-size:var(--fs-s);color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:10px}
+
+/* 用户评论 */
+.comments{display:grid;gap:12px}
+.comment{
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:13px 15px;background:#fbfaf6;
+  font-size:var(--fs-s);
+}
+.comment header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.avatar{
+  width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:var(--teal-soft);color:var(--teal);font-weight:700;font-size:var(--fs-xs);flex-shrink:0;
+}
+.comment .who{font-weight:600;color:var(--ink)}
+.comment time{color:var(--muted);font-size:var(--fs-xs);margin-left:auto}
+.comment p{margin:0;color:var(--ink-soft)}
+.comment .ref{display:inline-block;margin-top:6px;font-size:var(--fs-xs);color:var(--teal);background:var(--teal-soft);border-radius:4px;padding:1px 7px}
+
+/* 榜单 */
+.rank-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:rank}
+.rank-list li{
+  counter-increment:rank;display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:10px 14px;background:#fff;font-size:var(--fs-s);
+}
+.rank-list li::before{
+  content:counter(rank);font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;font-size:1.05rem;text-align:center;
+}
+.rank-list li:nth-child(1)::before,.rank-list li:nth-child(2)::before,.rank-list li:nth-child(3)::before{color:var(--warn)}
+.rank-list b{color:var(--ink)}
+.rank-list .delta{font-size:var(--fs-xs);color:var(--teal);white-space:nowrap}
+.rank-list .delta.down{color:var(--warn)}
+
+/* 推荐标签 */
+.reco-tags{display:flex;flex-wrap:wrap;gap:8px}
+.reco-tags a{
+  font-size:var(--fs-s);background:var(--accent-soft);border:1px solid #ecd9a6;
+  color:#7a5209;border-radius:var(--radius-s);padding:6px 12px;
+}
+.reco-tags a:hover{background:var(--accent);color:var(--ink);text-decoration:none}
+
+/* 时间线区块（补充板块） */
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.flow li{position:relative;padding:0 0 18px 26px;border-left:2px solid var(--line);font-size:var(--fs-s)}
+.flow li:last-child{border-left-color:transparent;padding-bottom:0}
+.flow li::before{
+  content:"";position:absolute;left:-7px;top:4px;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent);
+}
+.flow b{display:block;color:var(--ink)}
+.flow span{color:var(--muted);font-size:var(--fs-xs)}
+
+/* 页尾 */
+.site-foot{background:var(--brand);color:#c3d3d9;padding-block:var(--space-5) var(--space-4);margin-top:var(--space-4)}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:var(--space-4)}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.foot-brand svg{width:34px;height:34px}
+.foot-brand strong{color:#fff;font-size:1rem}
+.site-foot p{font-size:var(--fs-s);color:#a9bec5;margin-bottom:10px}
+.site-foot h4{color:#fff;font-size:var(--fs-s);letter-spacing:.08em;margin-bottom:10px}
+.foot-links{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.foot-links a{color:#c3d3d9;font-size:var(--fs-s)}
+.foot-links a:hover{color:var(--accent)}
+.foot-note{border-top:1px solid rgba(255,255,255,.15);margin-top:var(--space-4);padding-top:var(--space-3);font-size:var(--fs-xs);color:#8fa6ad;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.sample-note{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius-m);padding:10px 14px;font-size:var(--fs-xs);color:#a9bec5;margin-top:var(--space-3);
+}
+
+/* 回到顶部 */
+#toTop{
+  position:fixed;right:18px;bottom:22px;z-index:70;
+  width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--teal);color:#fff;box-shadow:var(--shadow-m);
+  display:grid;place-items:center;opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .2s,transform .2s;
+}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+#toTop svg{width:18px;height:18px}
+#toTop:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .sidebar{position:static;order:2;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{max-width:420px;margin-inline:auto;min-height:0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  :root{--stick-offset:108px}
+  .menu-btn{display:inline-block}
+  .main-nav{
+    display:none;order:5;flex-basis:100%;margin-left:0;
+    border-top:1px solid var(--line);padding-top:8px;
+  }
+  .main-nav.open{display:flex}
+  .head-inner{gap:8px}
+  .search-box input{width:140px}
+  .head-cta{display:none}
+  .card-grid{grid-template-columns:1fr}
+  .overview-grid{grid-template-columns:1fr}
+  .sidebar{grid-template-columns:1fr}
+  .updates li{grid-template-columns:64px 1fr;row-gap:2px}
+  .updates .badge{grid-column:2;justify-self:start}
+  .panel{padding:var(--space-3);border-radius:var(--radius-m)}
+  .announce a{margin-left:0}
+  .foot-grid{grid-template-columns:1fr}
+  #toTop{right:12px;bottom:14px}
+}
+@media (max-width:380px){
+  .search-box input{width:104px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"每日大赛反差",
+  "inLanguage":"zh-CN",
+  "description":"聚焦赛事成绩与选手状态落差的多平台赛果、榜单变动与复盘案例整理。"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"预选赛成绩好、决赛失常，通常先查哪一项？",
+      "acceptedAnswer":{"@type":"Answer","text":"先核对赛制与出场顺序，再看选手在决赛日的单场用时与失误数。以11月1日城市赛区的日程为例，预选到决赛间隔不足5小时，B组选手平均休息时长仅78分钟。"}
+    },
+    {
+      "@type":"Question",
+      "name":"同一选手在两个平台的排名差很多，怎么解释？",
+      "acceptedAnswer":{"@type":"Answer","text":"先看排名口径：积分制与投票制对同一场成绩的换算不同。10月28日公布的双榜里，积分榜按胜场加权，人气榜按互动量折算，前二十名的重合只有11人。"}
+    },
+    {
+      "@type":"Question",
+      "name":"榜单更新后名次下降，是不是说明实力退步？",
+      "acceptedAnswer":{"@type":"Answer","text":"不一定。榜单变动还受新参赛者加入和权重调整影响。11月3日的榜单共纳入46名新选手，原有前十里4人被挤出，个人胜负记录没有变化。"}
+    },
+    {
+      "@type":"Question",
+      "name":"看录播能替代现场观赛吗？",
+      "acceptedAnswer":{"@type":"Answer","text":"录播通常会切掉换场、设备调试和裁判沟通，这些恰好是反差来源。10月25日半决赛的两次暂停共23分钟，录播里只保留不到1分钟。"}
+    },
+    {
+      "@type":"Question",
+      "name":"新参赛怎么快速判断一场比赛值不值得看？",
+      "acceptedAnswer":{"@type":"Answer","text":"看三项：选手历史最好成绩、本场对手强度、赛制是否设置追分环节。10月30日的追分制场次里有3场在最后一轮逆转，常见单局定胜负场次只有1场。"}
+    },
+    {
+      "@type":"Question",
+      "name":"官方赛程和第三方整理不一致，以哪个为准？",
+      "acceptedAnswer":{"@type":"Answer","text":"以主办方发布的赛程和现场计时为准，第三方表格常用于观看索引。11月5日某场次官方改为19点30分开赛，第三方表格仍写19点，导致部分观众错过开场。"}
+    }
+  ]
+}
+</script>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 公告条 -->
+<div class="announce">
+  <div class="wrap">
+    <span class="tag">每日大赛反差</span>
+    <span><strong>11月7日 22:14 更新</strong>：华东赛区半决赛名单与双榜同步调整，新增3场追分制场次回放</span>
+    <a href="/#updates">查看今日变动</a>
+  </div>
+</div>
+
+<!-- 页头 -->
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/#top" aria-label="每日大赛反差 首页">
+      <svg viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#0f2436"/>
+        <path d="M12 46 L24 20 L35 38 L44 26 L52 46 Z" fill="#f2b544"/>
+        <circle cx="46" cy="17" r="5" fill="#57c7c1"/>
+        <path d="M12 50 H52" stroke="#57c7c1" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">每日大赛反差<small>赛果 · 状态 · 落差</small></span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="主题导航">
+      <a href="/#overview">赛事概览</a>
+      <a href="/#featured">精选复盘</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">分类入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">观赛指南</a>
+      <a href="/#faq">常见问题</a>
+    </nav>
+    <div class="head-tools">
+      <div class="search-box">
+        <label for="siteSearch" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">站内搜索</label>
+        <input id="siteSearch" type="search" placeholder="搜赛事 / 选手 / 赛制" autocomplete="off">
+        <button type="button" id="searchGo" aria-label="搜索">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 13l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <a class="head-cta" href="/#guide">观赛入门</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">频道菜单</button>
+    </div>
+    <p class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></p>
+  </div>
+</header>
+
+<div class="search-empty" id="searchEmpty" role="status" aria-live="polite"></div>
+
+<!-- 首屏 -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-kicker">11月8日 · 赛区观察</span>
+        <h1>每日大赛反差</h1>
+        <p class="hero-lead">把预选赛的高分、决赛的失误、榜单的跳动放到同一张表里看。这里记录成绩与状态之间的落差，标出可核对的赛制、时间与对手强度，让每场冷门都有来路。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#featured">看今日三场反转</a>
+          <a class="btn btn-ghost" href="/#deep">读判断方法</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>46</b><span>本周收录场次</span></div>
+          <div><b>12</b><span>可比对赛区</span></div>
+          <div><b>78分钟</b><span>决赛日均休息</span></div>
+          <div><b>11人</b><span>双榜前二十重合</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 420 300" role="img" aria-label="成绩曲线与落差柱状示意：预选赛峰值高，决赛曲线回落">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#57c7c1" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#57c7c1" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="420" height="300" rx="18" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.16)"/>
+          <g stroke="rgba(255,255,255,.14)" stroke-width="1">
+            <line x1="34" y1="70" x2="392" y2="70"/>
+            <line x1="34" y1="120" x2="392" y2="120"/>
+            <line x1="34" y1="170" x2="392" y2="170"/>
+            <line x1="34" y1="220" x2="392" y2="220"/>
+          </g>
+          <path d="M34 200 L86 120 L138 96 L190 132 L242 176 L294 152 L346 196 L392 208 L392 250 L34 250 Z" fill="url(#g1)"/>
+          <path d="M34 200 L86 120 L138 96 L190 132 L242 176 L294 152 L346 196 L392 208" fill="none" stroke="#57c7c1" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="#f2b544">
+            <rect x="118" y="96" width="10" height="0" rx="2"/>
+          </g>
+          <g fill="#f2b544" opacity=".95">
+            <rect x="256" y="140" width="14" height="78" rx="3"/>
+            <rect x="288" y="168" width="14" height="50" rx="3"/>
+            <rect x="320" y="120" width="14" height="98" rx="3"/>
+          </g>
+          <circle cx="138" cy="96" r="6" fill="#fff" stroke="#f2b544" stroke-width="3"/>
+          <circle cx="242" cy="176" r="6" fill="#fff" stroke="#f2b544" stroke-width="3"/>
+          <text x="112" y="76" fill="#f2b544" font-size="13" font-family="sans-serif">预选峰值</text>
+          <text x="212" y="204" fill="#c6d8dd" font-size="13" font-family="sans-serif">决赛回落</text>
+          <text x="34" y="278" fill="#9fbcc2" font-size="12" font-family="sans-serif">A组</text>
+          <text x="120" y="278" fill="#9fbcc2" font-size="12" font-family="sans-serif">B组</text>
+          <text x="204" y="278" fill="#9fbcc2" font-size="12" font-family="sans-serif">C组</text>
+          <text x="288" y="278" fill="#9fbcc2" font-size="12" font-family="sans-serif">D组</text>
+          <text x="360" y="278" fill="#9fbcc2" font-size="12" font-family="sans-serif">E组</text>
+        </svg>
+        <p class="art-note">落差柱表示决赛相对预选赛的名次位移</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap layout">
+  <main>
+
+    <!-- 领域概览 -->
+    <section class="panel" id="overview">
+      <div class="panel-head">
+        <h2>赛事概览：本周落差集中在哪里</h2>
+        <span class="hint">数据口径：11月2日—11月7日已结束场次</span>
+      </div>
+      <p>本周收录的46场里，预选第一、决赛跌出前八的共有9场，比上周多3场。落差最集中的环节是“出场顺序靠后 + 追分制”，D组三场中有两场发生末轮翻盘。赛区分布上，华东赛区贡献了5场，华南赛区3场，其余赛区合计1场。</p>
+      <div class="overview-grid">
+        <div class="ov-item">
+          <b>9 场</b><span>预选第一 → 八强外</span>
+          <p>其中6场出现在下午16点后的场次，休息间隔普遍短于90分钟。</p>
+        </div>
+        <div class="ov-item">
+          <b>3 场</b><span>末轮追分逆转</span>
+          <p>均使用追分制，最后一轮分值占总分30%，11月4日D组决赛为典型样本。</p>
+        </div>
+        <div class="ov-item">
+          <b>4 人</b><span>双榜掉出前十</span>
+          <p>11月3日榜单更新后，个人胜负记录未变，掉榜主要来自新参赛者46人加入。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 精选内容推荐 -->
+    <section class="panel" id="featured">
+      <div class="panel-head">
+        <h2>精选内容推荐：三场值得回看的反转</h2>
+        <span class="hint">按落差幅度排序</span>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://picsum.photos/seed/daily-arena-d1/560/320" width="560" height="320" loading="lazy" alt="D组决赛场地计分屏与倒计时牌，现场光线偏暗">
+          <div class="card-body">
+            <span class="card-tag">D组 · 追分制</span>
+            <h3>预选第一在最后一轮被追平：D组决赛末轮复盘</h3>
+            <p>前三轮领先12分，末轮对方连续命中两记高分题，终局分差1分。场次用时97分钟，超过组内平均21分钟。</p>
+            <div class="card-meta"><span>11月4日 21:10</span><span>华东赛区</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/daily-arena-b2/560/320" width="560" height="320" loading="lazy" alt="B组预选赛选手排队登记桌面，放置号码牌与计时器">
+          <div class="card-body">
+            <span class="card-tag">B组 · 单败</span>
+            <h3>预选第二名进决赛却止步首轮，问题出在出场顺序</h3>
+            <p>决赛日排在第7位出场，距上一场仅76分钟。首轮用时18分42秒，比赛季均值慢3分出头。</p>
+            <div class="card-meta"><span>11月2日 18:35</span><span>华南赛区</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/daily-arena-e3/560/320" width="560" height="320" loading="lazy" alt="E组观众区与选手准备区之间的隔离带，桌上摆放赛程单">
+          <div class="card-body">
+            <span class="card-tag">E组 · 积分制</span>
+            <h3>赛程改到19:30后，E组三人成绩同时下滑</h3>
+            <p>官方11月5日临时调整开场时间，三位习惯早场的选手首轮失误数合计上升9次。</p>
+            <div class="card-meta"><span>11月5日 19:30</span><span>西南赛区</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/seed/daily-arena-c4/560/320" width="560" height="320" loading="lazy" alt="C组榜单打印稿贴在公告板，名次一栏用红笔圈出">
+          <div class="card-body">
+            <span class="card-tag">C组 · 榜单</span>
+            <h3>胜负记录没变，C组两人却掉出前十</h3>
+            <p>11月3日榜单纳入46名新选手，权重同时上调互动项，原有前十中有4人被挤出。</p>
+            <div class="card-meta"><span>11月3日 10:00</span><span>双榜合并</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 最新更新 -->
+    <section class="panel" id="updates">
+      <div class="panel-head">
+        <h2>最新更新：名单、赛程与回放</h2>
+        <span class="hint">按时间倒序</span>
+      </div>
+      <ul class="updates">
+        <li><time datetime="2026-11-07">11月7日</time><a href="/#featured">华东赛区半决赛名单与双榜同步调整</a><span class="badge">名单</span></li>
+        <li><time datetime="2026-11-06">11月6日</time><a href="/#guide">新增3场追分制场次的完整回放与用时表</a><span class="badge">回放</span></li>
+        <li><time datetime="2026-11-05">11月5日</time><a href="/#deep">E组开场时间改为19:30，官方赛程已更正</a><span class="badge">赛程</span></li>
+        <li><time datetime="2026-11-04">11月4日</time><a href="/#featured">D组决赛末轮数据补录，分差修正为1分</a><span class="badge">数据</span></li>
+        <li><time datetime="2026-11-03">11月3日</time><a href="/#rank">榜单权重调整，新增46名参赛者纳入统计</a><span class="badge">榜单</span></li>
+        <li><time datetime="2026-11-02">11月2日</time><a href="/#comments">B组观众登记反馈汇总，共37条有效记录</a><span class="badge">反馈</span></li>
+        <li><time datetime="2026-11-01">11月1日</time><a href="/#deep">城市赛区预选至决赛间隔缩短至5小时以内</a><span class="badge">日程</span></li>
+      </ul>
+    </section>
+
+    <!-- 分类入口 -->
+    <section class="panel" id="channels">
+      <div class="panel-head">
+        <h2>分类入口：按赛制与观察角度找场次</h2>
+        <span class="hint">共12个频道</span>
+      </div>
+      <div class="index-tags">
+        <a href="/#featured">追分制翻盘 <em>3场</em></a>
+        <a href="/#featured">预选赛高分落败 <em>9场</em></a>
+        <a href="/#rank">选手积分榜变动 <em>7条</em></a>
+        <a href="/#updates">赛程临时调整记录 <em>5条</em></a>
+        <a href="/#deep">出场顺序与用时 <em>复盘</em></a>
+        <a href="/#comments">现场观众观赛反馈 <em>37条</em></a>
+        <a href="/#guide">新参赛者观赛指南 <em>步骤</em></a>
+        <a href="/#faq">双榜口径差异 <em>问答</em></a>
+        <a href="/#flow">决赛日时间线 <em>时间轴</em></a>
+        <a href="/#reco">冷门场次推荐 <em>标签</em></a>
+        <a href="/#rank">赛区强度排名 <em>榜单</em></a>
+        <a href="/#deep">设备与裁判沟通 <em>细节</em></a>
+      </div>
+    </section>
+
+    <!-- 深度解析 -->
+    <section class="panel deep" id="deep">
+      <div class="panel-head">
+        <h2>深度解析：落差更多来自日程，不全是状态</h2>
+        <span class="hint">唯一主体阅读区</span>
+      </div>
+      <p class="lead">判断一场冷门值不值得当成“状态问题”来讨论，先看两个可核对项：预选到决赛的间隔时长，以及决赛当天的出场位次。两者同时不利时，名次位移的解释力明显下降。</p>
+
+      <h3>一、同一批选手，间隔缩短后成绩波动变大</h3>
+      <p>11月1日城市赛区的日程里，预选赛结束到决赛开场只隔4小时40分，B组选手平均休息78分钟。当天B组预选前四名里，有三人决赛首轮用时高于赛季均值，最高一场慢了4分11秒。</p>
+      <ul class="timeline">
+        <li><b>11月1日 11:20</b>预选赛结束，B组前四名产生，第一名领先第二名7分。</li>
+        <li><b>11月1日 14:05</b>决赛签到，出场顺序按预选名次倒序，预选第一排在第6位出场。</li>
+        <li><b>11月1日 16:00</b>决赛首轮结束，预选第一用时22分37秒，赛季均值18分20秒。</li>
+        <li><b>11月1日 17:48</b>终局，该选手排名第五，与预选名次相差4位。</li>
+      </ul>
+      <p>把这组数字和上周同赛区对比：10月25日的场次预选到决赛间隔6小时30分，同一批选手中三人决赛用时只慢了40秒到1分10秒，名次位移最多2位。差异落在休息时长，不在个人历史胜负记录。</p>
+
+      <h3>二、追分制让末轮分值变重，领先不等于安全</h3>
+      <p>11月4日D组决赛使用追分制，最后一轮分值占总分30%。前三轮结束时，A选手领先12分；末轮对手完成两次高分题，终局分差1分。这里有一个常被忽略的规则细节：追分制下前三轮的分值权重逐轮递减，末轮单题最高分等于前两轮之和。</p>
+      <table class="compare">
+        <thead>
+          <tr><th>轮次</th><th>单题最高分</th><th>占总分比例</th><th>D组决赛结果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>第一轮</td><td>6分</td><td>15%</td><td>A选手领先4分</td></tr>
+          <tr><td>第二轮</td><td>8分</td><td>20%</td><td>A选手领先9分</td></tr>
+          <tr><td>第三轮</td><td>10分</td><td>25%</td><td>A选手领先12分</td></tr>
+          <tr><td>末轮</td><td>14分</td><td>30%</td><td>对手连续两题14分，反超1分</td></tr>
+        </tbody>
+      </table>
+      <p>换句话说，前三轮领先12分，在末轮只相当于不到一题的缓冲。赛事解说在11月4日直播里说“12分已经够稳”，这句话可被反驳：按末轮分值结构，领先12分仍可能被两题抹平。</p>
+
+      <h3>三、榜单口径不同，排名差异不等于实力差异</h3>
+      <p>10月28日公布的双榜中，积分榜按胜场加权，人气榜按互动量折算。两榜前二十名的重合只有11人。C组一位选手在积分榜排第4，在人气榜排第27，原因是其胜场集中但互动记录少。</p>
+      <div class="quote-card">
+        “同一场胜利，在积分榜值3分，在人气榜折算成约1.2分，名次自然对不上。”
+        <cite>——10月28日双榜说明页，第2条换算规则</cite>
+      </div>
+      <p>11月3日权重调整后，互动项权重上调0.5，C组两人掉出前十，个人胜负记录未变。把这次掉榜解释为“实力退步”缺乏依据，可核实的变化只有权重和新增46名参赛者。</p>
+
+      <h3>四、把判断拆成可核对的三项</h3>
+      <p>遇到一场名次落差较大的比赛，按下面三项逐条核对，能排除大部分解释噪音。三项里有两项不满足，再讨论状态问题更合适。</p>
+      <table class="compare">
+        <thead><tr><th>核对项</th><th>满足条件</th><th>本周反例</th></tr></thead>
+        <tbody>
+          <tr><td>休息间隔</td><td>预选到决赛≥5小时，单场间隔≥100分钟</td><td>11月1日B组，间隔78分钟</td></tr>
+          <tr><td>出场位次</td><td>排在前4位出场</td><td>11月1日预选第一排第6位</td></tr>
+          <tr><td>赛制结构</td><td>末轮分值占比≤20%</td><td>11月4日D组末轮占30%</td></tr>
+        </tbody>
+      </table>
+      <p>本周9场“预选第一跌出前八”的场次里，三项全部满足的只有2场，另外7场至少有一项不满足。这个分布说明：把落差先归到日程和赛制，比先归到个人状态，命中率更高。</p>
+    </section>
+
+    <!-- 体验指南 -->
+    <section class="panel" id="guide">
+      <div class="panel-head">
+        <h2>观赛指南：新观众怎么看懂一场反差</h2>
+        <span class="hint">5步，按现场节奏</span>
+      </div>
+      <ol class="steps">
+        <li><b>先看赛制说明，不看比分</b>确认是单败、积分还是追分制，末轮分值占比写在赛程单第一页，决定后面所有判断。</li>
+        <li><b>记下出场顺序</b>预选名次倒序出场的场次，靠后出场者休息更少，11月1日B组就是这样出现首轮慢热。</li>
+        <li><b>卡住换场和暂停</b>现场暂停通常不剪进录播。10月25日半决赛两次暂停合计23分钟，恰好是两名选手状态转折的位置。</li>
+        <li><b>只对照同一赛区的均值</b>跨赛区比用时意义有限，赛道长度与题量不同。华东赛区赛季均值18分20秒，西南赛区为20分05秒。</li>
+        <li><b>看完再查榜单口径</b>积分榜、人气榜换算规则不同，11月3日的权重调整让4人掉出前十，事后查比现场猜更准。</li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section class="panel" id="faq">
+      <div class="panel-head">
+        <h2>常见问题：赛制、榜单与观赛方式</h2>
+        <span class="hint">点击展开</span>
+      </div>
+      <details>
+        <summary>预选赛成绩好、决赛失常，通常先查哪一项？</summary>
+        <div class="faq-body">先核对赛制与出场顺序，再看决赛日的单场用时与失误数。以11月1日城市赛区的日程为例，预选到决赛间隔不足5小时，B组选手平均休息仅78分钟，预选第一排在第6位出场，首轮用时22分37秒。</div>
+      </details>
+      <details>
+        <summary>同一选手在两个平台的排名差很多，怎么解释？</summary>
+        <div class="faq-body">先看排名口径。积分制与投票制对同一场成绩的换算不同：10月28日公布的双榜里，积分榜按胜场加权，人气榜按互动量折算，前二十名的重合只有11人，C组一位选手两榜相差23位。</div>
+      </details>
+      <details>
+        <summary>榜单更新后名次下降，是不是说明实力退步？</summary>
+        <div class="faq-body">不一定。榜单变动还受新参赛者加入和权重调整影响。11月3日的榜单共纳入46名新选手，互动项权重上调0.5，原有前十里4人被挤出，这些人的个人胜负记录没有变化。</div>
+      </details>
+      <details>
+        <summary>看录播能替代现场观赛吗？</summary>
+        <div class="faq-body">录播通常剪掉换场、设备调试和裁判沟通，这些恰好是反差的来源。10月25日半决赛的两次暂停共23分钟，录播里只保留不到1分钟，两名选手的节奏变化在录播中看不出来。</div>
+      </details>
+      <details>
+        <summary>新参赛怎么快速判断一场比赛值不值得看？</summary>
+        <div class="faq-body">看三项：选手历史最好成绩、本场对手强度、赛制是否设置追分环节。10月30日的追分制场次里有3场在最后一轮逆转，常见的单局定胜负场次只有1场，值得看的比例差三倍。</div>
+      </details>
+      <details>
+        <summary>官方赛程和第三方整理不一致，以哪个为准？</summary>
+        <div class="faq-body">以主办方发布的赛程和现场计时为准，第三方表格主要用于观看索引。11月5日E组场次官方改为19点30分开赛，第三方表格仍写19点，部分观众因此错过开场，现场签到记录可核对。</div>
+      </details>
+    </section>
+
+    <!-- 用户评论 -->
+    <section class="panel" id="comments">
+      <div class="panel-head">
+        <h2>用户评论：来自观众与参赛者的现场反馈</h2>
+        <span class="hint">37条记录，选登6条</span>
+      </div>
+      <div class="comments">
+        <div class="comment">
+          <header><span class="avatar">观</span><span class="who">看台第三排</span><time datetime="2026-11-07">11月7日 21:02</time></header>
+          <p>D组决赛末轮那个14分是真没想到。前三轮结束我都准备走了，回头一看记分屏被追平，这种赛制确实留人。</p>
+          <span class="ref">指向：D组决赛末轮复盘</span>
+        </div>
+        <div class="comment">
+          <header><span class="avatar">选</span><span class="who">B组第六位出场</span><time datetime="2026-11-06">11月6日 12:41</time></header>
+          <p>78分钟休息不是借口，但确实影响手感。我首轮前两题手是凉的，后面才热起来。赛程能不能别排这么紧。</p>
+          <span class="ref">指向：11月1日B组日程</span>
+        </div>
+        <div class="comment">
+          <header><span class="avatar">记</span><span class="who">记分员老周</span><time datetime="2026-11-06">11月6日 09:15</time></header>
+          <p>双榜前二十重合11人这个数字我核过，说明两套换算差距不小。人气榜的互动项在11月3日调了权重，那之后C组名次动得最厉害。</p>
+          <span class="ref">指向：10月28日双榜换算</span>
+        </div>
+        <div class="comment">
+          <header><span class="avatar">路</span><span class="who">路过观众</span><time datetime="2026-11-05">11月5日 20:10</time></header>
+          <p>说句可能不中听的：现场看E组那场，19点30分开赛改得太突然，门口还有一批人按19点来的。表上写19点的是第三方吧，主办方当天下午就发通知了。</p>
+          <span class="ref">指向：11月5日E组赛程调整</span>
+        </div>
+        <div class="comment">
+          <header><span class="avatar">新</span><span class="who">第一次观赛</span><time datetime="2026-11-04">11月4日 17:26</time></header>
+          <p>看完指南第4步才明白为什么不能跨赛区比用时。之前一直觉得西南赛区选手慢，原来是题量多两道。</p>
+          <span class="ref">指向：观赛指南第4步</span>
+        </div>
+        <div class="comment">
+          <header><span class="avatar">复</span><span class="who">复盘爱好者</span><time datetime="2026-11-03">11月3日 22:55</time></header>
+          <p>深度解析里那个“三项核对表”挺好用，我拿10月30日的场次试了一遍，三项里只有一项满足，难怪冷门多。</p>
+          <span class="ref">指向：深度解析第四节</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 相关资讯 -->
+    <section class="panel" id="news">
+      <div class="panel-head">
+        <h2>相关资讯：赛区动态与规则说明</h2>
+        <span class="hint">本周发布</span>
+      </div>
+      <ul class="updates">
+        <li><time datetime="2026-11-07">11月7日</time><a href="/#overview">华东赛区公布半决赛名单，预选前八中两人退赛</a><span class="badge">赛区</span></li>
+        <li><time datetime="2026-11-06">11月6日</time><a href="/#deep">追分制说明页更新，明确末轮单题最高14分</a><span class="badge">规则</span></li>
+        <li><time datetime="2026-11-05">11月5日</time><a href="/#guide">观赛区新增计分屏回看位，位置在C区入口右侧</a><span class="badge">场地</span></li>
+        <li><time datetime="2026-11-02">11月2日</time><a href="/#rank">赛区强度排名按近30天胜场加权重新计算</a><span class="badge">排名</span></li>
+      </ul>
+    </section>
+
+    <!-- 榜单补充板块 -->
+    <section class="panel" id="rank">
+      <div class="panel-head">
+        <h2>赛区强度榜：近30天加权排名</h2>
+        <span class="hint">权重：胜场60%、对手强度25%、稳定性15%</span>
+      </div>
+      <ol class="rank-list">
+        <li><b>华东赛区</b><span class="delta">↑1</span></li>
+        <li><b>华南赛区</b><span class="delta down">↓1</span></li>
+        <li><b>西南赛区</b><span class="delta">持平</span></li>
+        <li><b>华北赛区</b><span class="delta">↑2</span></li>
+        <li><b>东北赛区</b><span class="delta down">↓1</span></li>
+        <li><b>华中赛区</b><span class="delta">持平</span></li>
+      </ol>
+      <p style="font-size:var(--fs-xs);color:var(--muted);margin-top:12px">排名依据各赛区11月2日至11月7日完赛场次的加权结果，样本共46场，华北赛区样本最少，仅5场。</p>
+    </section>
+
+    <!-- 时间线补充板块 -->
+    <section class="panel" id="flow">
+      <div class="panel-head">
+        <h2>决赛日时间线：以11月4日D组为例</h2>
+        <span class="hint">含暂停与换场</span>
+      </div>
+      <ul class="flow">
+        <li><b>17:40 签到与抽签</b><span>出场顺序按预选名次倒序确定</span></li>
+        <li><b>18:10 第一轮开始</b><span>单题最高6分，A选手领先4分</span></li>
+        <li><b>19:02 设备调试暂停</b><span>持续11分钟，录播剪辑为约30秒</span></li>
+        <li><b>19:35 第三轮结束</b><span>A选手领先12分，解说称“已够稳”</span></li>
+        <li><b>20:12 末轮开始</b><span>单题最高14分，占总分30%</span></li>
+        <li><b>20:58 终局</b><span>对手连续两题14分，反超1分</span></li>
+      </ul>
+    </section>
+
+    <!-- 相关推荐 -->
+    <section class="panel" id="reco">
+      <div class="panel-head">
+        <h2>相关推荐：接下来可看的场次与主题</h2>
+        <span class="hint">按关键词索引</span>
+      </div>
+      <div class="reco-tags">
+        <a href="/#featured">追分制末轮逆转</a>
+        <a href="/#deep">出场顺序与休息间隔</a>
+        <a href="/#rank">赛区强度排名变化</a>
+        <a href="/#faq">积分榜人气榜差异</a>
+        <a href="/#guide">新观众观赛五步</a>
+        <a href="/#updates">赛程临时调整记录</a>
+        <a href="/#comments">现场观众反馈汇总</a>
+        <a href="/#flow">决赛日时间线样本</a>
+        <a href="/#deep">双榜权重调整影响</a>
+        <a href="/#featured">预选第一落败案例</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 侧栏 -->
+  <aside class="sidebar" aria-label="侧栏导航">
+    <div class="side-card">
+      <h3>栏目导航</h3>
+      <nav class="side-nav" id="sideNav" aria-label="侧栏目录">
+        <a href="/#overview">赛事概览</a>
+        <a href="/#featured">精选内容推荐</a>
+        <a href="/#updates">最新更新</a>
+        <a href="/#channels">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">观赛指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#comments">用户评论</a>
+        <a href="/#news">相关资讯</a>
+        <a href="/#rank">赛区强度榜</a>
+        <a href="/#flow">决赛日时间线</a>
+        <a href="/#reco">相关推荐</a>
+      </nav>
+    </div>
+    <div class="side-card">
+      <h3>本周可核对数字</h3>
+      <ul class="side-list">
+        <li><b>9</b> 场预选第一跌出八强</li>
+        <li><b>78</b> 分钟决赛日平均休息</li>
+        <li><b>30%</b> 追分制末轮分值占比</li>
+        <li><b>11</b> 人双榜前二十重合</li>
+        <li><b>46</b> 名新参赛者纳入榜单</li>
+        <li><b>23</b> 分钟10月25日暂停总长</li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h3>观看提示</h3>
+      <p style="font-size:var(--fs-s);color:var(--ink-soft);margin:0">11月8日场次预计16点开签，出场顺序当天上午公布。计分屏回看位在C区入口右侧，现场计时以主办方公告为准。</p>
+    </div>
+  </aside>
+</div>
+
+<!-- 页尾 -->
+<footer class="site-foot" id="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#f2b544"/><path d="M12 46 L24 20 L35 38 L44 26 L52 46 Z" fill="#0f2436"/><circle cx="46" cy="17" r="5" fill="#57c7c1"/></svg>
+          <strong>每日大赛反差</strong>
+        </div>
+        <p>记录成绩与状态之间的落差，标出赛制、赛程与榜单口径中可核对的部分。看冷门，先看条件。</p>
+      </div>
+      <div>
+        <h4>观察栏目</h4>
+        <ul class="foot-links">
+          <li><a href="/#overview">赛事概览</a></li>
+          <li><a href="/#featured">精选内容推荐</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">观赛指南</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>数据与互动</h4>
+        <ul class="foot-links">
+          <li><a href="/#updates">最新更新</a></li>
+          <li><a href="/#rank">赛区强度榜</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>索引与推荐</h4>
+        <ul class="foot-links">
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#flow">决赛日时间线</a></li>
+          <li><a href="/#reco">相关推荐</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sample-note">示例数据说明：本页赛事、选手、赛区与榜单数字均为演示用示例条目，非真实赛事记录，引用前请以主办方公告核对。</div>
+    <div class="foot-note">
+      <span>页面内容更新：2026年11月8日，对应“最新更新”与“赛区强度榜”两项可核对条目。</span>
+      <span>© 2026 每日大赛反差 · 保留所有权利</span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" type="button" aria-label="回到顶部">
+  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5M5 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 移动端菜单 */
+  var menuBtn = document.getElementById('menuBtn');
+  var mainNav = document.getElementById('mainNav');
+  if(menuBtn && mainNav){
+    menuBtn.addEventListener('click', function(){
+      var open = mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuBtn.textContent = open ? '收起菜单' : '频道菜单';
+    });
+    mainNav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 760){
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        menuBtn.textContent = '频道菜单';
+      }
+    });
+  }
+
+  /* 平滑滚动并预留吸顶偏移 */
+  function offset(){
+    var a = document.querySelector('.announce');
+    var h = document.querySelector('.site-head');
+    var v = 0;
+    if(a) v += a.offsetHeight;
+    if(h) v += h.offsetHeight;
+    return v + 10;
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="/#"]');
+    if(!a) return;
+    var id = a.getAttribute('href').slice(2);
+    if(!id) return;
+    var target = document.getElementById(id);
+    if(!target) return;
+    e.preventDefault();
+    var y = target.getBoundingClientRect().top + window.pageYOffset - offset();
+    window.scrollTo({top: Math.max(y,0), behavior: reduce ? 'auto' : 'smooth'});
+    history.replaceState(null,'','#'+id);
+    if(mainNav && window.innerWidth <= 760 && mainNav.classList.contains('open')){
+      mainNav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+      menuBtn.textContent = '频道菜单';
+    }
+  });
+
+  /* 回到顶部 */
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    if(window.pageYOffset > 480){ toTop.classList.add('show'); }
+    else { toTop.classList.remove('show'); }
+    highlight();
+  }
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+
+  /* 侧栏滚动高亮 */
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var targets = sideLinks.map(function(a){
+    return document.getElementById(a.getAttribute('href').slice(2));
+  });
+  function highlight(){
+    var pos = window.pageYOffset + offset() + 20;
+    var active = 0;
+    for(var i=0;i<targets.length;i++){
+      if(targets[i] && targets[i].offsetTop <= pos) active = i;
+    }
+    sideLinks.forEach(function(a,i){
+      a.classList.toggle('active', i === active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 760 && mainNav){
+      mainNav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+      menuBtn.textContent = '频道菜单';
+    }
+    highlight();
+  });
+  onScroll();
+
+  /* 本地搜索 */
+  var input = document.getElementById('siteSearch');
+  var go = document.getElementById('searchGo');
+  var feedback = document.getElementById('searchFeedback');
+  var empty = document.getElementById('searchEmpty');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('main section[id], .side-card'));
+  var original = nodes.map(function(n){ return n.innerHTML; });
+  var hits = [];
+
+  function clearHits(){
+    hits.forEach(function(el){
+      var parent = el.parentNode;
+      if(!parent) return;
+      while(el.firstChild){ parent.insertBefore(el.firstChild, el); }
+      parent.removeChild(el);
+    });
+    hits = [];
+    nodes.forEach(function(n,i){ if(n.innerHTML !== original[i]) n.innerHTML = original[i]; });
+    empty.style.display = 'none';
+    feedback.style.display = 'none';
+    feedback.textContent = '';
+  }
+
+  function doSearch(){
+    clearHits();
+    var q = input.value.trim();
+    if(!q) return;
+    var found = [];
+    nodes.forEach(function(node){
+      var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(t){
+          if(!t.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          var p = t.parentNode.nodeName;
+          if(p === 'SCRIPT' || p === 'STYLE') return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      var textNodes = [];
+      var n;
+      while((n = walker.nextNode())) textNodes.push(n);
+      textNodes.forEach(function(t){
+        var idx = t.nodeValue.toLowerCase().indexOf(q.toLowerCase());
+        if(idx === -1) return;
+        var span = document.createElement('mark');
+        span.className = 'hit';
+        span.textContent = t.nodeValue.slice(idx, idx + q.length);
+        var rest = t.splitText(idx);
+        rest.nodeValue = rest.nodeValue.slice(q.length);
+        rest.parentNode.insertBefore(span, rest);
+        hits.push(span);
+        if(found.indexOf(node) === -1) found.push(node);
+      });
+    });
+    if(found.length === 0){
+      empty.style.display = 'block';
+      empty.textContent = '没有找到与“' + q + '”相关的内容。可以试试：追分制、出场顺序、积分榜、赛区强度、观赛指南。';
+      return;
+    }
+    feedback.style.display = 'block';
+    feedback.style.color = '#2e8b85';
+    feedback.textContent = '找到 ' + found.length + ' 个相关板块，已高亮“' + q + '”。';
+    var first = hits[0];
+    if(first){
+      var y = first.getBoundingClientRect().top + window.pageYOffset - offset() - 40;
+      window.scrollTo({top: Math.max(y,0), behavior: reduce ? 'auto' : 'smooth'});
+    }
+  }
+
+  go.addEventListener('click', doSearch);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); doSearch(); }
+  });
+  input.addEventListener('input', function(){
+    if(!input.value.trim()) clearHits();
+  });
+})();
+</script>
+</body>
+                                                                                                                           </html>
