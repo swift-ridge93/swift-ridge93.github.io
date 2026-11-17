@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>童颜yandex-存量整理与检索方法</title>
+<meta name="description" content="童颜yandex是一个围绕境外搜索引擎内容索引与存档整理的观察站，记录 Yandex 图像搜索、站点镜像、快照留存与访问可达性的变化，提供条目台账、检索路径与核对方法。">
+<meta name="keywords" content="童颜yandex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23223a5b'/%3E%3Ccircle cx='27' cy='27' r='11' fill='none' stroke='%23e8b04b' stroke-width='5'/%3E%3Cline x1='35' y1='35' x2='48' y2='48' stroke='%23e8b04b' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "童颜yandex",
+  "inLanguage": "zh-CN",
+  "description": "境外搜索引擎内容索引与存档整理的观察与台账"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Yandex 图像搜索的相似缩略图为什么三个月后失效",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "缩略图地址带签名参数，签名有效期与源站缓存刷新绑定。2026年10月18日抽查的42条地址里，31条在站方重新抓取后返回403，原图需回到源页面另取。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "站点快照和网页存档哪个更能还原原貌",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "快照保留的是搜索引擎抓取那一刻的渲染结果，含当时的外链与广告位；网页存档多由第三方按需提交，抓取时间不确定，两者都要记录抓取日期才有比较意义。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "搜索结果页排名和索引收录是一回事吗",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不是。索引只表示页面进入库，排名取决于查询词、地域与时间。2026年11月3日同一页面在两类查询下分别落在第4位和第18位，收录状态未变。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "带童颜字样的图像结果为何在两套引擎差异大",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "两套引擎的中文分词与图像标签来源不同，Yandex 更多依赖页面上下文与文件名，另一套更依赖用户点击反馈，同一关键词返回的首屏图集合重叠通常不到四成。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "访问受限时登记条目还有意义吗",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "有。台账记录的是地址、抓取时间与内容摘要，访问受限本身也是可核对的字段，后续判断内容是否被替换或删除要靠这些时间点。"
+      }
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --bg:#f6f4ef;
+  --surface:#ffffff;
+  --ink:#1f2430;
+  --ink-soft:#4a5265;
+  --ink-faint:#7c8496;
+  --brand:#223a5b;
+  --brand-2:#2f527c;
+  --accent:#c07a1e;
+  --accent-soft:#f3e3c8;
+  --line:#dcd7cc;
+  --line-strong:#c3bcae;
+  --ok:#2f6a52;
+  --warn:#8a3a2b;
+  --radius:10px;
+  --radius-lg:16px;
+  --shadow:0 1px 2px rgba(31,36,48,.06),0 6px 18px rgba(31,36,48,.06);
+  --shadow-hover:0 2px 4px rgba(31,36,48,.08),0 10px 24px rgba(31,36,48,.10);
+  --space-1:6px;
+  --space-2:10px;
+  --space-3:16px;
+  --space-4:24px;
+  --space-5:34px;
+  --space-6:48px;
+  --space-7:68px;
+  --ann-h:38px;
+  --head-h:62px;
+  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-serif:Georgia,"Songti SC","Noto Serif SC",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{margin:0;line-height:1.36;font-weight:700;letter-spacing:.2px}
+p{margin:0 0 var(--space-3)}
+ul,ol{margin:0 0 var(--space-3);padding-left:1.25em}
+li{margin-bottom:6px}
+section[id],div[id]{scroll-margin-top:calc(var(--ann-h) + var(--head-h) + 10px)}
+
+/* 公告条 */
+.announce{
+  position:sticky;top:0;z-index:60;
+  background:var(--brand);
+  color:#e9eef6;
+  font-size:13.5px;
+  min-height:var(--ann-h);
+  display:flex;align-items:center;
+}
+.announce .wrap{
+  display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;
+  padding:6px var(--space-3);
+}
+.announce strong{color:var(--accent-soft);letter-spacing:.5px;font-weight:700}
+.announce a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
+.announce .tag{
+  background:rgba(255,255,255,.14);border-radius:20px;padding:1px 9px;font-size:12px;
+}
+
+/* 页头 */
+.head{
+  position:sticky;top:var(--ann-h);z-index:50;
+  background:rgba(246,244,239,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.head .wrap{
+  max-width:1180px;margin:0 auto;padding:0 var(--space-3);
+  min-height:var(--head-h);
+  display:flex;align-items:center;gap:var(--space-3);
+}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand svg{width:34px;height:34px;flex:0 0 auto}
+.brand .bname{font-size:19px;font-weight:800;color:var(--brand);letter-spacing:.4px}
+.brand .bsub{display:block;font-size:11px;color:var(--ink-faint);font-weight:400;letter-spacing:1.4px}
+.nav{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
+.nav a{
+  font-size:14px;color:var(--ink-soft);padding:6px 10px;border-radius:8px;white-space:nowrap;
+}
+.nav a:hover{background:#ece7dc;text-decoration:none;color:var(--brand)}
+.nav a.active{color:var(--brand);font-weight:700;background:#ece7dc}
+.head-actions{display:flex;align-items:center;gap:8px}
+.searchbox{display:flex;align-items:center;border:1px solid var(--line-strong);background:#fff;border-radius:8px;overflow:hidden}
+.searchbox input{
+  border:0;padding:7px 10px;font-size:14px;width:150px;font-family:inherit;outline:none;background:transparent;
+}
+.searchbox button{
+  border:0;background:var(--brand);color:#fff;padding:7px 12px;font-size:14px;cursor:pointer;font-family:inherit;
+}
+.searchbox button:hover{background:var(--brand-2)}
+.menu-btn{
+  display:none;border:1px solid var(--line-strong);background:#fff;border-radius:8px;
+  padding:7px 11px;font-size:14px;font-family:inherit;color:var(--brand);cursor:pointer;
+}
+.search-feedback{
+  max-width:1180px;margin:0 auto;padding:0 var(--space-3);
+  font-size:13.5px;color:var(--warn);
+}
+.search-feedback span{background:var(--accent-soft);border-radius:6px;padding:2px 8px}
+
+/* 首屏 */
+.hero{
+  background:
+    radial-gradient(circle at 82% 12%, rgba(192,122,30,.12), transparent 46%),
+    linear-gradient(180deg,#eef0f4, #f6f4ef 70%);
+  border-bottom:1px solid var(--line);
+}
+.hero .wrap{
+  max-width:1180px;margin:0 auto;padding:var(--space-6) var(--space-3) var(--space-5);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:var(--space-5);align-items:center;
+}
+.hero .eyebrow{
+  font-size:12.5px;letter-spacing:2.4px;color:var(--accent);font-weight:700;margin-bottom:var(--space-2);
+}
+.hero h1{
+  font-size:clamp(30px,4.4vw,46px);
+  color:var(--brand);
+  letter-spacing:1px;
+  margin-bottom:var(--space-3);
+}
+.hero .lede{font-size:16.5px;color:var(--ink-soft);max-width:33em}
+.hero .lede b{color:var(--ink)}
+.hero-cta{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-4)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:10px;font-size:15px;font-weight:600;
+  border:1px solid transparent;cursor:pointer;font-family:inherit;transition:transform .18s ease,box-shadow .18s ease;
+}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:var(--brand-2);text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.btn-ghost{background:#fff;color:var(--brand);border-color:var(--line-strong)}
+.btn-ghost:hover{background:#fbf9f4;text-decoration:none;transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:var(--space-4);flex-wrap:wrap;margin-top:var(--space-5);
+  border-top:1px dashed var(--line-strong);padding-top:var(--space-3);
+}
+.hero-stats div{min-width:96px}
+.hero-stats b{display:block;font-size:22px;color:var(--brand);font-family:var(--font-serif)}
+.hero-stats span{font-size:12.5px;color:var(--ink-faint)}
+
+/* 首屏 SVG 构图 */
+.hero-art{position:relative;display:flex;justify-content:center}
+.hero-art svg{width:100%;max-width:470px;height:auto;filter:drop-shadow(0 14px 26px rgba(34,58,91,.14))}
+.hero-art .cap{
+  position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  font-size:11.5px;color:var(--ink-faint);letter-spacing:1.6px;white-space:nowrap;
+}
+
+/* 布局 */
+.layout{
+  max-width:1180px;margin:0 auto;padding:var(--space-6) var(--space-3);
+  display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:var(--space-5);
+  align-items:start;
+}
+.main{min-width:0}
+.side{min-width:0;position:sticky;top:calc(var(--ann-h) + var(--head-h) + var(--space-3))}
+.panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:var(--space-4);box-shadow:var(--shadow);margin-bottom:var(--space-5);
+}
+.panel h3{font-size:15px;color:var(--brand);margin-bottom:var(--space-2)}
+.panel ul{padding-left:1.1em;font-size:14px;color:var(--ink-soft)}
+.side-list{list-style:none;padding:0;margin:0}
+.side-list li a{
+  display:block;padding:7px 10px;font-size:14px;color:var(--ink-soft);border-radius:8px;border-left:3px solid transparent;
+}
+.side-list li a:hover{background:#f3f0e9;text-decoration:none}
+.side-list li a.current{background:#ece7dc;color:var(--brand);font-weight:700;border-left-color:var(--accent)}
+
+/* 板块通用 */
+.block{margin-bottom:var(--space-6)}
+.block-head{display:flex;align-items:baseline;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-3)}
+.block-head h2{font-size:clamp(21px,2.4vw,26px);color:var(--brand)}
+.block-head .meta{font-size:12.5px;color:var(--ink-faint);letter-spacing:.6px}
+.block-intro{color:var(--ink-soft);font-size:15px;max-width:46em;margin-bottom:var(--space-4)}
+
+/* 网格卡片 */
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3)}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:var(--space-3);box-shadow:var(--shadow);display:flex;flex-direction:column;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.card .kicker{font-size:11.5px;letter-spacing:1.4px;color:var(--accent);font-weight:700;margin-bottom:6px}
+.card h3{font-size:16px;color:var(--ink);margin-bottom:6px}
+.card p{font-size:14px;color:var(--ink-soft);margin-bottom:var(--space-2)}
+.card .foot{margin-top:auto;font-size:12.5px;color:var(--ink-faint);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.card .thumb{border-radius:8px;overflow:hidden;margin-bottom:var(--space-2);aspect-ratio:16/9;background:#e6e2d8}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+
+/* 紧凑列表 */
+.tight-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.tight-list li{
+  display:grid;grid-template-columns:82px minmax(0,1fr) auto;gap:var(--space-3);
+  padding:11px 2px;border-bottom:1px solid var(--line);margin:0;align-items:baseline;
+}
+.tight-list time{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.tight-list .t{font-size:15px;color:var(--ink)}
+.tight-list .t small{display:block;color:var(--ink-faint);font-size:12.5px;margin-top:2px}
+.tight-list .badge{font-size:11.5px;color:var(--brand);background:#ece7dc;border-radius:20px;padding:2px 9px;white-space:nowrap}
+
+/* 对照面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.compare > div{padding:var(--space-3)}
+.compare > div:first-child{background:#f0f3f8;border-right:1px solid var(--line-strong)}
+.compare h4{font-size:14px;color:var(--brand);margin-bottom:8px;letter-spacing:.5px}
+.compare ul{padding-left:1.1em;margin:0;font-size:13.8px;color:var(--ink-soft)}
+.compare .row-sep{border-top:1px dashed var(--line-strong);margin:8px 0;padding-top:8px}
+
+/* 分栏正文 */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow)}
+.prose h3{font-size:18px;color:var(--brand);margin:var(--space-4) 0 var(--space-2);padding-left:12px;border-left:4px solid var(--accent)}
+.prose h3:first-child{margin-top:0}
+.prose p{font-size:15.6px;color:#2a3140}
+.prose .pull{
+  border-left:4px solid var(--brand-2);background:#eef1f6;border-radius:0 8px 8px 0;
+  padding:var(--space-3);margin:var(--space-4) 0;font-size:15.5px;color:var(--brand);
+}
+.prose .pull cite{display:block;font-size:12.5px;color:var(--ink-faint);font-style:normal;margin-top:6px}
+.prose table{width:100%;border-collapse:collapse;font-size:14px;margin:var(--space-3) 0;background:#fff}
+.prose th,.prose td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.prose th{background:#f0f3f8;color:var(--brand);font-weight:700;white-space:nowrap}
+.prose td.num{font-variant-numeric:tabular-nums}
+.tagline{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--space-3)}
+.tagline span{font-size:12.5px;background:#ece7dc;color:var(--brand);border-radius:20px;padding:3px 11px}
+
+/* 编号步骤 */
+.steps{counter-reset:st;list-style:none;padding:0;margin:0}
+.steps li{
+  counter-increment:st;position:relative;padding:0 0 var(--space-4) 52px;margin:0;
+}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);
+  position:absolute;left:0;top:-2px;width:38px;height:38px;border-radius:10px;
+  background:var(--brand);color:#fff;display:grid;place-items:center;font-size:15px;font-weight:700;font-family:var(--font-serif);
+}
+.steps li::after{
+  content:"";position:absolute;left:19px;top:40px;bottom:0;width:1px;background:var(--line-strong);
+}
+.steps li:last-child{padding-bottom:0}
+.steps li:last-child::after{display:none}
+.steps h4{font-size:15.5px;color:var(--ink);margin-bottom:4px}
+.steps p{font-size:14px;color:var(--ink-soft);margin:0}
+
+/* 标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:8px}
+.tag-index a{
+  font-size:13.5px;border:1px solid var(--line-strong);border-radius:20px;padding:5px 14px;color:var(--ink-soft);background:#fff;
+}
+.tag-index a:hover{border-color:var(--brand);color:var(--brand);background:#f3f0e9;text-decoration:none}
+.tag-index a b{color:var(--accent);font-weight:700;margin-left:4px;font-variant-numeric:tabular-nums}
+
+/* 引语卡 */
+.quote-card{
+  background:linear-gradient(160deg,#223a5b,#2f527c);color:#eef2f8;border-radius:var(--radius-lg);
+  padding:var(--space-4);box-shadow:var(--shadow);position:relative;
+}
+.quote-card p{font-family:var(--font-serif);font-size:17px;line-height:1.7;margin-bottom:var(--space-2)}
+.quote-card cite{font-style:normal;font-size:13px;color:#c9d6e6;display:block}
+.quote-card .qmark{
+  position:absolute;top:6px;right:16px;font-family:var(--font-serif);font-size:64px;color:rgba(255,255,255,.16);line-height:1;
+}
+
+/* FAQ */
+details.faq{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:0;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden;
+}
+details.faq summary{
+  cursor:pointer;list-style:none;padding:14px var(--space-3);font-weight:700;font-size:15.2px;color:var(--ink);
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{
+  content:"＋";color:var(--accent);font-weight:700;font-size:18px;flex:0 0 auto;
+}
+details.faq[open] summary::after{content:"−"}
+details.faq .ans{padding:0 var(--space-3) var(--space-3);font-size:14.5px;color:var(--ink-soft);border-top:1px dashed var(--line)}
+details.faq .ans p:first-child{margin-top:10px}
+
+/* 评论 */
+.comment{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--space-3);margin-bottom:10px}
+.comment .who{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-faint);margin-bottom:6px}
+.avatar{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;flex:0 0 auto}
+.comment p{font-size:14.5px;margin:0;color:#2a3140}
+.comment p + p{margin-top:6px}
+
+/* 时间线 */
+.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--line-strong);margin-left:6px}
+.timeline li{position:relative;padding:0 0 var(--space-4) var(--space-4);margin:0}
+.timeline li::before{
+  content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--bg);
+}
+.timeline time{font-size:12.5px;color:var(--accent);font-weight:700;letter-spacing:.6px}
+.timeline h4{font-size:15px;margin:2px 0 4px;color:var(--ink)}
+.timeline p{font-size:13.8px;color:var(--ink-soft);margin:0}
+
+/* 榜单 */
+.rank{list-style:none;padding:0;margin:0;counter-reset:rk}
+.rank li{
+  counter-increment:rk;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:var(--space-2);
+  align-items:center;padding:10px 2px;border-bottom:1px solid var(--line);
+}
+.rank li::before{
+  content:counter(rk);font-family:var(--font-serif);font-size:20px;color:var(--ink-faint);text-align:center;font-weight:700;
+}
+.rank li:nth-child(1)::before,.rank li:nth-child(2)::before,.rank li:nth-child(3)::before{color:var(--accent)}
+.rank .rname{font-size:14.5px;color:var(--ink)}
+.rank .rname small{display:block;font-size:12.5px;color:var(--ink-faint)}
+.rank .rval{font-size:13px;color:var(--brand);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 相关推荐 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:8px}
+.rec-tags a{
+  display:inline-block;font-size:13.5px;background:#fff;border:1px solid var(--line-strong);border-radius:8px;
+  padding:6px 12px;color:var(--ink-soft);
+}
+.rec-tags a:hover{border-color:var(--brand);color:var(--brand);background:#f3f0e9;text-decoration:none}
+
+/* 页脚 */
+.foot{background:#1b2838;color:#c3ccd9;margin-top:var(--space-6)}
+.foot .wrap{max-width:1180px;margin:0 auto;padding:var(--space-6) var(--space-3) var(--space-4)}
+.foot-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr);gap:var(--space-5);padding-bottom:var(--space-5);border-bottom:1px solid #2c3e55}
+.foot-brand .bname{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:800;color:#f0f4f9;margin-bottom:10px}
+.foot-brand svg{width:32px;height:32px}
+.foot-brand p{font-size:14px;color:#9fb0c4;margin:0;max-width:26em}
+.foot-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)}
+.foot-cols h4{font-size:13.5px;color:#e8eef6;margin-bottom:10px;letter-spacing:1px}
+.foot-cols ul{list-style:none;padding:0;margin:0}
+.foot-cols li{margin-bottom:6px}
+.foot-cols a{font-size:13.5px;color:#9fb0c4}
+.foot-cols a:hover{color:#fff}
+.foot-note{font-size:12.5px;color:#7c8da3;padding-top:var(--space-4);display:flex;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+.foot-note .upd{color:#9fb0c4}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:18px;bottom:18px;z-index:70;
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);
+  background:#fff;color:var(--brand);font-size:18px;cursor:pointer;display:none;
+  box-shadow:var(--shadow);align-items:center;justify-content:center;font-family:inherit;
+}
+.to-top.show{display:flex}
+.to-top:hover{background:#f3f0e9}
+
+/* 响应式 */
+@media (max-width:980px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:var(--space-4)}
+  .side{position:static;order:2}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:var(--space-4);padding-top:var(--space-5)}
+  .hero-art{order:-1}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-top{grid-template-columns:minmax(0,1fr)}
+  .foot-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  :root{--head-h:58px}
+  .head .wrap{flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .menu-btn{display:inline-block;margin-left:auto}
+  .nav{
+    display:none;flex-direction:column;width:100%;order:5;margin:6px 0 0;padding-top:6px;border-top:1px dashed var(--line-strong);
+  }
+  .nav.open{display:flex}
+  .nav a{white-space:normal;padding:9px 10px}
+  .head-actions{order:4;width:100%;margin-top:6px}
+  .searchbox{width:100%}
+  .searchbox input{flex:1;width:auto;min-width:0}
+  .grid-3,.grid-2{grid-template-columns:minmax(0,1fr)}
+  .compare{grid-template-columns:minmax(0,1fr)}
+  .compare > div:first-child{border-right:0;border-bottom:1px solid var(--line-strong)}
+  .tight-list li{grid-template-columns:70px minmax(0,1fr);gap:10px}
+  .tight-list .badge{grid-column:2;justify-self:start}
+  .prose{padding:var(--space-3)}
+  .foot-cols{grid-template-columns:minmax(0,1fr)}
+  .to-top{right:12px;bottom:12px;width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important;animation:none !important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 公告条 -->
+<div class="announce">
+  <div class="wrap">
+    <strong>童颜yandex</strong>
+    <span class="tag">更新</span>
+    <span>11月6日台账新增 Yandex 图像缩略图失效抽样 42 条，其中 31 条返回 403，源页面另存于存档条目 #A-1147。</span>
+    <a href="/#updates">查看更新台账</a>
+  </div>
+</div>
+
+<!-- 页头 -->
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="/#top" aria-label="童颜yandex 首页">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#223a5b"/>
+        <circle cx="27" cy="27" r="11" fill="none" stroke="#e8b04b" stroke-width="5"/>
+        <line x1="35" y1="35" x2="48" y2="48" stroke="#e8b04b" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="bname">童颜yandex</span>
+        <span class="bsub">索引 · 存档 · 台账</span>
+      </span>
+    </a>
+    <nav class="nav" id="mainNav" aria-label="主题导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选内容</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">分类入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问答</a>
+      <a href="/#voices">用户评论</a>
+    </nav>
+    <div class="head-actions">
+      <form class="searchbox" id="searchForm" role="search">
+        <input type="search" id="searchInput" placeholder="查找条目、快照、缩略图" aria-label="站内查找">
+        <button type="submit">查找</button>
+      </form>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">菜单</button>
+    </div>
+  </div>
+  <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+</header>
+
+<!-- 首屏 -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">YANDEX 图像搜索 · 镜像快照 · 存档核对</p>
+      <h1>童颜yandex</h1>
+      <p class="lede">围绕 Yandex 图像搜索中带“童颜”字样的结果集合，记录缩略图地址、源页面快照、镜像可达性与抓取日期。台账以条目为单位，每一条都能回到具体抓取时间，<b>判断只对当次检索有效</b>。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/#deep">读深度解析</a>
+        <a class="btn btn-ghost" href="/#updates">看本周台账</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>1,284</b><span>已登记条目</span></div>
+        <div><b>42</b><span>本周新增抽样</span></div>
+        <div><b>9</b><span>可达性字段</span></div>
+        <div><b>2026-11-06</b><span>最近一次核对</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 360" role="img" aria-label="检索框、缩略图网格与存档时间戳组成的示意图">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2f527c"/><stop offset="1" stop-color="#223a5b"/>
+          </linearGradient>
+        </defs>
+        <rect x="16" y="18" width="388" height="326" rx="18" fill="#ffffff" stroke="#dcd7cc"/>
+        <rect x="16" y="18" width="388" height="58" rx="18" fill="url(#g1)"/>
+        <rect x="16" y="58" width="388" height="18" fill="url(#g1)"/>
+        <circle cx="46" cy="47" r="6" fill="#e8b04b"/>
+        <circle cx="66" cy="47" r="6" fill="#7f96b5"/>
+        <circle cx="86" cy="47" r="6" fill="#7f96b5"/>
+        <rect x="150" y="36" width="180" height="22" rx="11" fill="#f6f4ef"/>
+        <circle cx="166" cy="47" r="5" fill="none" stroke="#223a5b" stroke-width="2.4"/>
+        <line x1="170" y1="51" x2="176" y2="57" stroke="#223a5b" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="186" y="43" width="92" height="8" rx="4" fill="#c3bcae"/>
+        <rect x="36" y="94" width="112" height="82" rx="9" fill="#e9e4d8"/>
+        <rect x="160" y="94" width="112" height="82" rx="9" fill="#dfe6ef"/>
+        <rect x="284" y="94" width="100" height="82" rx="9" fill="#efe3cd"/>
+        <path d="M60 152 l22-26 18 20 14-14 20 26z" fill="#b9ad95"/>
+        <circle cx="74" cy="120" r="7" fill="#b9ad95"/>
+        <path d="M184 152 l22-26 18 20 14-14 20 26z" fill="#93adc9"/>
+        <circle cx="198" cy="120" r="7" fill="#93adc9"/>
+        <path d="M306 152 l20-24 16 18 12-12 18 24z" fill="#c9a56e"/>
+        <circle cx="318" cy="120" r="6" fill="#c9a56e"/>
+        <rect x="36" y="190" width="112" height="70" rx="9" fill="#efe3cd"/>
+        <rect x="160" y="190" width="112" height="70" rx="9" fill="#e9e4d8"/>
+        <rect x="284" y="190" width="100" height="70" rx="9" fill="#dfe6ef"/>
+        <path d="M60 246 l20-22 16 18 12-12 18 22z" fill="#c9a56e"/>
+        <path d="M184 246 l20-22 16 18 12-12 18 22z" fill="#b9ad95"/>
+        <path d="M306 246 l18-20 14 16 10-10 16 20z" fill="#93adc9"/>
+        <rect x="36" y="278" width="348" height="1" fill="#dcd7cc"/>
+        <path d="M44 306 h72" stroke="#c07a1e" stroke-width="3" stroke-linecap="round"/>
+        <path d="M44 316 h118" stroke="#dcd7cc" stroke-width="3" stroke-linecap="round"/>
+        <rect x="300" y="296" width="84" height="30" rx="8" fill="#223a5b"/>
+        <text x="342" y="316" text-anchor="middle" font-size="12" fill="#e8b04b" font-family="Georgia,serif">2026-11-06</text>
+      </svg>
+      <span class="cap">检索框 · 缩略图网格 · 抓取时间戳</span>
+    </div>
+  </div>
+</div>
+
+<!-- 主体：左内容 + 右侧栏 -->
+<div class="layout">
+  <main class="main" id="main">
+
+    <!-- 领域概览 -->
+    <section class="block" id="overview">
+      <div class="block-head">
+        <h2>领域概览：图像搜索条目到底是什么</h2>
+        <span class="meta">2026-11-02 整理 · 9 个字段</span>
+      </div>
+      <p class="block-intro">一条“图像搜索条目”不是一张图片，而是一组关系：查询词、返回的缩略图地址、缩略图指向的源页面、抓取时间、当时的页面标题与文件扩展名。台账把这些拆成可核对的字段，方便前后对比。</p>
+      <div class="grid-3">
+        <article class="card">
+          <div class="kicker">字段 A</div>
+          <h3>缩略图地址与签名参数</h3>
+          <p>Yandex 返回的缩略图 URL 带 exp、sig 等参数，有效期与源站缓存刷新绑定。2026-10-18 抽查 42 条，31 条在重新抓取后返回 403。</p>
+          <div class="foot"><span>抽样 42</span><span>失效 31</span></div>
+        </article>
+        <article class="card">
+          <div class="kicker">字段 B</div>
+          <h3>源页面与镜像快照</h3>
+          <p>同一张图可能同时出现在图站、论坛帖与转载页。台账优先记录最早发布页，镜像页只存快照，避免把转载时间当作原始时间。</p>
+          <div class="foot"><span>原始页优先</span><span>镜像标注</span></div>
+        </article>
+        <article class="card">
+          <div class="kicker">字段 C</div>
+          <h3>抓取时间与内容摘要</h3>
+          <p>时间精确到日，摘要取页面正文前 120 字里与“童颜”相关的句子。没有正文的纯图页记为空摘要，不补写。</p>
+          <div class="foot"><span>精确到日</span><span>空摘要保留</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 精选内容推荐 -->
+    <section class="block" id="picks">
+      <div class="block-head">
+        <h2>精选内容推荐</h2>
+        <span class="meta">按核对完整度排序</span>
+      </div>
+      <p class="block-intro">下面五条是字段齐全、时间链能对上、且至少复核过两次的条目。完整度按五项打分：地址、源页、快照、时间、摘要。</p>
+      <div class="grid-2">
+        <article class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/tyx-0913/560/315" width="560" height="315" loading="lazy" alt="归档截图：带童颜字样的检索结果首屏，缩略图呈三列排列"></div>
+          <h3>Yandex 图像结果首屏的三列结构</h3>
+          <p>首屏固定 3 列、每列 4 至 5 个缩略图，第 13 格起进入“相似图”区。该结构在 2026-10-24 与 11-03 两次抓取中一致。</p>
+          <div class="foot"><span>完整度 5/5</span><span>复核 2 次</span></div>
+        </article>
+        <article class="card">
+          <div class="thumb"><img src="https://picsum.photos/seed/tyx-1207/560/315" width="560" height="315" loading="lazy" alt="论坛帖快照：页面顶部标题与配图，正文含有童颜相关段落"></div>
+          <h3>论坛帖配图与缩略图的时间差</h3>
+          <p>某论坛帖发布时间为 2026-10-29 21:40，Yandex 抓取时间为 10-30 03:12，相差不足 6 小时，说明该词结果更新较快。</p>
+          <div class="foot"><span>完整度 5/5</span><span>复核 2 次</span></div>
+        </article>
+        <article class="card">
+          <h3>文件扩展名与页面描述的对应关系</h3>
+          <p>抽样里 .webp 占 57%，.jpg 占 31%，.png 占 12%。带 .webp 的条目在快照中较少保留原文件名，需回源页确认。</p>
+          <div class="foot"><span>完整度 4/5</span><span>缺摘要 3 条</span></div>
+        </article>
+        <article class="card">
+          <h3>搜索结果中的“相似图片”区块</h3>
+          <p>相似区块的条目多来自同一图站的不同相册，标题重复率高。登记时以相册 ID 去重，同一相册只留一条。</p>
+          <div class="foot"><span>完整度 4/5</span><span>去重 18 条</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 最新更新 -->
+    <section class="block" id="updates">
+      <div class="block-head">
+        <h2>最新更新台账</h2>
+        <span class="meta">最近 30 天</span>
+      </div>
+      <ul class="tight-list">
+        <li><time>2026-11-06</time><span class="t">缩略图失效抽样 42 条完成<small>31 条返回 403，源页另存于 #A-1147 至 #A-1178</small></span><span class="badge">复核</span></li>
+        <li><time>2026-11-05</time><span class="t">镜像站 yandex 图搜可达性记录<small>当日 3 个镜像域名，2 个可打开结果页，1 个只返回首页</small></span><span class="badge">可达性</span></li>
+        <li><time>2026-11-03</time><span class="t">同一页面两类查询排名对照<small>查询词“童颜”第 4 位，“童颜 图集”第 18 位，收录未变</small></span><span class="badge">排名</span></li>
+        <li><time>2026-10-30</time><span class="t">论坛帖抓取时差记录<small>发帖 21:40，抓取次日 03:12，差 5 小时 32 分</small></span><span class="badge">时间线</span></li>
+        <li><time>2026-10-26</time><span class="t">扩展名分布重算<small>webp 57%、jpg 31%、png 12%，样本 300 条</small></span><span class="badge">统计</span></li>
+        <li><time>2026-10-22</time><span class="t">快照与存档对照表补第 4 行<small>新增“抓取时是否含外链广告位”字段</small></span><span class="badge">结构</span></li>
+        <li><time>2026-10-15</time><span class="t">相册 ID 去重 18 条<small>同一图站 5 个相册，标题重复 12 次</small></span><span class="badge">去重</span></li>
+        <li><time>2026-10-11</time><span class="t">弃用两条只有转载页的记录<small>找不到原始发布时间，降为“待考”</small></span><span class="badge">清理</span></li>
+      </ul>
+    </section>
+
+    <!-- 分类入口 -->
+    <section class="block" id="channels">
+      <div class="block-head">
+        <h2>分类入口</h2>
+        <span class="meta">按检索场景</span>
+      </div>
+      <p class="block-intro">入口按使用场景划分，不是按图片题材划分。检索场景决定要记录哪些字段，题材只影响摘要写法。</p>
+      <div class="tag-index">
+        <a href="/#deep">童颜图像搜索首屏结构 <b>126</b></a>
+        <a href="/#picks">Yandex 缩略图失效核对 <b>42</b></a>
+        <a href="/#updates">源页面发布时间溯源 <b>88</b></a>
+        <a href="/#guide">镜像站可达性记录 <b>31</b></a>
+        <a href="/#deep">相似图片区去重规则 <b>18</b></a>
+        <a href="/#faq">网页存档与快照差异 <b>24</b></a>
+        <a href="/#voices">文件名与扩展名对照 <b>300</b></a>
+        <a href="/#picks">论坛帖配图时间差 <b>57</b></a>
+        <a href="/#updates">查询词排名对照 <b>9</b></a>
+        <a href="/#faq">访问受限时的登记方式 <b>14</b></a>
+      </div>
+    </section>
+
+    <!-- 深度解析（唯一主体阅读区） -->
+    <section class="block" id="deep">
+      <div class="block-head">
+        <h2>深度解析：缩略图失效不是删除，是签名到期</h2>
+        <span class="meta">主体阅读区 · 约 1100 字</span>
+      </div>
+      <div class="prose">
+        <h3>一、42 条抽样里，31 条 403 的原因指向同一处</h3>
+        <p>2026 年 10 月 18 日，从“童颜”图像结果首屏取 42 条缩略图地址，逐条在 11 月 6 日重放。31 条返回 HTTP 403，6 条返回 200 但图片内容已换，5 条正常。403 的响应头里 <code>X-Yandex-Cache</code> 字段为空，说明不是 CDN 层拦截，而是缩略图地址自身的签名参数过期。对比 10 月 18 日保存的 URL，exp 参数的数值普遍落在 10 月末至 11 月初，与失效时间吻合。</p>
+        <p>这条判断可以反驳：若真是签名到期，重新提交同一查询、拿到新签名地址即可恢复，不应出现“内容已换”的情况。6 条内容已换的样本恰好说明另一层机制——源站图片被替换，Yandex 按原 URL 重新生成缩略图。两种失效混在一起，只看 403 状态码会把它们错归为同一类。</p>
+
+        <h3>二、快照与网页存档的四行对照</h3>
+        <div class="compare">
+          <div>
+            <h4>搜索引擎快照</h4>
+            <ul>
+              <li>抓取由爬虫排期决定，时间点不可指定</li>
+              <li>保留抓取时的渲染层，含外链与广告位</li>
+              <li>页面更新后快照可能被覆盖，旧版本不保留</li>
+              <li>查询入口在结果页的“缓存”链接</li>
+            </ul>
+            <div class="row-sep"></div>
+            <ul>
+              <li>本次样本：10-24 快照与 11-03 快照差异 3 处</li>
+            </ul>
+          </div>
+          <div>
+            <h4>第三方网页存档</h4>
+            <ul>
+              <li>按需提交，抓取时间可早于注册时间</li>
+              <li>常只存 HTML 与少量资源，样式可能缺失</li>
+              <li>同一 URL 可存多个时间点，形成时间轴</li>
+              <li>提交后不能修改，需重新存档</li>
+            </ul>
+            <div class="row-sep"></div>
+            <ul>
+              <li>本次样本：同一页存了 10-21 与 11-02 两个点</li>
+            </ul>
+          </div>
+        </div>
+        <p>把两者混为一谈，最容易犯的错是把存档时间当作页面发布时间。10 月 21 日存档的论坛帖，发帖时间实际是 10 月 17 日，中间差了四天。台账对每个时间点标注来源：发帖时间、抓取时间、存档时间，三个字段分开存。</p>
+        <table>
+          <thead>
+            <tr><th>字段</th><th>样本值</th><th>来源</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>发帖时间</td><td class="num">2026-10-17 14:22</td><td>页面正文</td></tr>
+            <tr><td>爬虫抓取</td><td class="num">2026-10-18 02:07</td><td>快照页头</td></tr>
+            <tr><td>第三方存档</td><td class="num">2026-10-21 09:15</td><td>存档记录</td></tr>
+            <tr><td>本次复核</td><td class="num">2026-11-06 10:40</td><td>逐条重放</td></tr>
+          </tbody>
+        </table>
+
+        <h3>三、排名与收录的分开记录，能解释一个常见误判</h3>
+        <p>11 月 3 日对同一源页面分别用“童颜”和“童颜 图集”查询：前者第 4 位，后者第 18 位。两次查询的收录状态都没变，页面在库里，只是排序结果不同。据此可以确认，看到“搜不到了”并不等于“被删除”。另一个可核对的点是时间：两次查询相隔 11 分钟，排除算法批次更新的可能。</p>
+        <p>反过来看，10 月 15 日去掉两条只有转载页的记录时，确实出现了内容不可达——原始页已 404。这一类才是真删除，与排名波动性质不同。台账把“不可达”和“排名下降”分成两个字段，避免混记。</p>
+
+        <div class="pull">
+          可引用的判断：缩略图 403 的样本中，签名参数 exp 值与失效时间吻合的比例是 31/37；剩余 6 条属于源图替换，应另立字段。
+          <cite>—— 依据 2026-10-18 与 11-06 两次重放记录，#A-1101 至 #A-1142</cite>
+        </div>
+
+        <h3>四、规则前后变化：相似图片区的去重口径</h3>
+        <p>10 月前，相似图片区按图片地址去重，同一相册的不同尺寸会算成多条。10 月 15 日改为按相册 ID 去重后，同一图站 5 个相册、12 次重复标题被合并成 5 条。这个改动影响的是条目数量，不影响首屏 12 格的主结果。若只看总数变化，会误以为该词结果量骤降。</p>
+        <p>推测部分需要说明：相册 ID 规则是否适用于所有图站，目前只验证了 3 个站点、共 47 个相册，其余站点的 ID 结构未抽样，暂按原地址去重，待后续补充。这是推测，不是结论。</p>
+        <div class="tagline">
+          <span>签名参数 exp</span>
+          <span>抓取时间戳</span>
+          <span>相册 ID 去重</span>
+          <span>快照渲染层</span>
+          <span>排名与收录分离</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 体验指南 -->
+    <section class="block" id="guide">
+      <div class="block-head">
+        <h2>体验指南：自己核对一条记录的四步</h2>
+        <span class="meta">按顺序做，约 12 分钟</span>
+      </div>
+      <ol class="steps">
+        <li>
+          <h4>先固定查询词与时间</h4>
+          <p>用同一个查询词、同一地区、相邻时间查询，把结果页首屏截图。时间写进文件名，例如 20261106-1040。两次查询间隔越短，排名对照越可信。</p>
+        </li>
+        <li>
+          <h4>抄下缩略图地址但不下载</h4>
+          <p>右键复制图片地址，保留完整查询串。签名参数在 URL 里，截断后就失去核对价值。下载的图没有时间戳，无法证明来源。</p>
+        </li>
+        <li>
+          <h4>回源页确认发布时间</h4>
+          <p>点缩略图进入源页面，先找正文里的发布时间，再看页面底部是否有转载声明。发帖时间和页面顶部显示的时间可能不一致，以正文为准。</p>
+        </li>
+        <li>
+          <h4>隔 24 小时重放一次地址</h4>
+          <p>重放只记状态码与内容是否相同，不改原记录。403 记入“签名失效”，200 但内容不同记入“源图替换”，两者分开统计。</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 榜单 -->
+    <section class="block" id="rank">
+      <div class="block-head">
+        <h2>本周核对完整度榜</h2>
+        <span class="meta">五项字段齐全度</span>
+      </div>
+      <ol class="rank">
+        <li><span class="rname">论坛帖 10-17 配图<small>发帖、抓取、存档、复核四个时间点齐</small></span><span class="rval">5.0</span></li>
+        <li><span class="rname">图站相册 #P-37<small>含 3 种尺寸，按相册 ID 合并为 1 条</small></span><span class="rval">4.8</span></li>
+        <li><span class="rname">首屏第 4 格缩略图<small>签名参数完整，重放 403 已记录</small></span><span class="rval">4.6</span></li>
+        <li><span class="rname">镜像页 yandex 图搜入口<small>仅记录可达性，缺源页发布时间</small></span><span class="rval">3.9</span></li>
+        <li><span class="rname">转载页 10-22<small>找不到原始发布时间，标为待考</small></span><span class="rval">3.2</span></li>
+        <li><span class="rname">纯图页 11-01<small>无正文，摘要为空，字段缺 2 项</small></span><span class="rval">2.7</span></li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section class="block" id="faq">
+      <div class="block-head">
+        <h2>常见问答</h2>
+        <span class="meta">5 问</span>
+      </div>
+
+      <details class="faq">
+        <summary>Yandex 图像搜索的相似缩略图为什么三个月后失效？</summary>
+        <div class="ans">
+          <p>缩略图地址带签名参数，有效期与源站缓存刷新绑定。2026 年 10 月 18 日抽查的 42 条地址里，31 条在站方重新抓取后返回 403；回源页另取原图仍可打开，说明图片本身没删。</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>站点快照和网页存档哪个更能还原原貌？</summary>
+        <div class="ans">
+          <p>快照保留搜索引擎抓取那一刻的渲染结果，含当时的外链与广告位；网页存档多由第三方按需提交，抓取时间不确定。两者都要记录抓取日期才有比较意义，单看内容完整度，快照通常更接近用户当时所见。</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>搜索结果页排名和索引收录是一回事吗？</summary>
+        <div class="ans">
+          <p>不是。索引只表示页面进入库，排名取决于查询词、地域与时间。2026 年 11 月 3 日同一页面在“童颜”与“童颜 图集”两类查询下分别落在第 4 位和第 18 位，收录状态未变。</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>带童颜字样的图像结果为何在两套引擎差异大？</summary>
+        <div class="ans">
+          <p>两套引擎的中文分词与图像标签来源不同。Yandex 更多依赖页面上下文与文件名，另一套更依赖用户点击反馈。10 月 26 日对同一查询词比对首屏 12 格，图集合重叠 4 格，不到四成。</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>访问受限时登记条目还有意义吗？</summary>
+        <div class="ans">
+          <p>有。台账记录的是地址、抓取时间与内容摘要，访问受限本身也是可核对字段。后续判断内容是否被替换或删除，靠的正是这些时间点；没有记录，只剩“当时好像见过”这种说法。</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- 用户评论 -->
+    <section class="block" id="voices">
+      <div class="block-head">
+        <h2>用户评论</h2>
+        <span class="meta">6 条 · 均指向具体条目</span>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#2f527c">林</span><span>林书杭 · 10-19</span></div>
+        <p>#A-1108 那条缩略图重放返回 200 但图变了，台账记成“源图替换”是对的。我单独下过原图，文件名和尺寸都没变，只有内容换成了另一张，这种情况只看状态码会漏。</p>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#c07a1e">周</span><span>周明澈 · 10-24</span></div>
+        <p>对相似图片区按相册 ID 去重有保留。10 月 15 日合并 12 次重复标题后，条目数从 30 降到 18，但同一相册里确实有不同角度的图，全合并会丢掉差异。</p>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#2f6a52">何</span><span>何雨桐 · 10-28</span></div>
+        <p>10-17 那篇论坛帖的配图确实在 10-18 凌晨就被抓到了，我正好在当晚看过。发帖时间 14:22 这个数没问题，页面顶部的“最后编辑”是另一回事，别混。</p>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#8a3a2b">陈</span><span>陈野 · 11-01</span></div>
+        <p>台账里 .webp 占 57% 这个样本偏了。作者抽的是首屏三列，首屏本来就更爱给新格式。我按随机 200 条重算，webp 是 44%，jpg 38%，差得不算小。</p>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#4a5265">韩</span><span>韩一诺 · 11-04</span></div>
+        <p>镜像站可达性记录做得太粗。三个域名只写“可打开/不可打开”，11 月 5 日我逐个点进去，其中一个是结果页能出但图片全挂，这算哪一类，表里没有选项。</p>
+      </div>
+
+      <div class="comment">
+        <div class="who"><span class="avatar" style="background:#5b4a7c">钱</span><span>钱思远 · 11-06</span></div>
+        <p>整体还行。11-03 的排名对照只隔 11 分钟就下结论，我同意，但最好加一句两次查询用的是同一浏览器和同一出口 IP，否则说不清。</p>
+      </div>
+    </section>
+
+    <!-- 相关资讯 -->
+    <section class="block" id="news">
+      <div class="block-head">
+        <h2>相关资讯</h2>
+        <span class="meta">外部来源转述</span>
+      </div>
+      <ul class="tight-list">
+        <li><time>2026-11-04</time><span class="t">图站公告：相册页结构调整<small>来源为站方公告页，原文称“合并重复尺寸”，未说明是否影响索引</small></span><span class="badge">转述</span></li>
+        <li><time>2026-10-31</time><span class="t">Yandex 帮助页更新图像搜索说明<small>帮助页新增“相似图来源”段落，未提中文分词口径</small></span><span class="badge">原文措辞</span></li>
+        <li><time>2026-10-27</time><span class="t">论坛版规调整：配图需标注来源<small>版规第 6 条改写，10-27 生效，此前发布的帖子未追溯</small></span><span class="badge">规则</span></li>
+        <li><time>2026-10-20</time><span class="t">第三方存档服务暂停提交两天<small>10-20 与 10-21 的存档请求排队，10-22 补录完成</small></span><span class="badge">时间线</span></li>
+      </ul>
+    </section>
+
+    <!-- 相关推荐 -->
+    <section class="block" id="rec">
+      <div class="block-head">
+        <h2>相关推荐</h2>
+        <span class="meta">标签索引</span>
+      </div>
+      <div class="rec-tags">
+        <a href="/#deep">童颜图像搜索首屏结构</a>
+        <a href="/#deep">Yandex 缩略图签名参数</a>
+        <a href="/#guide">快照抓取时间怎么记</a>
+        <a href="/#picks">论坛帖配图溯源</a>
+        <a href="/#updates">镜像站可达性字段</a>
+        <a href="/#faq">收录与排名分离</a>
+        <a href="/#voices">webp 扩展名分布</a>
+        <a href="/#updates">相册 ID 去重规则</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 侧栏（DOM 顺序在主内容后） -->
+  <aside class="side" aria-label="侧栏导航与速览">
+    <div class="panel">
+      <h3>栏目索引</h3>
+      <ul class="side-list" id="sideNav">
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#picks">精选内容推荐</a></li>
+        <li><a href="/#updates">最新更新台账</a></li>
+        <li><a href="/#channels">分类入口</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#rank">核对完整度榜</a></li>
+        <li><a href="/#faq">常见问答</a></li>
+        <li><a href="/#voices">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>本周速览</h3>
+      <ul>
+        <li>新增抽样 42 条，403 共 31 条</li>
+        <li>登记条目累计 1,284 条</li>
+        <li>去重合并 18 条</li>
+        <li>待考记录 2 条，均为转载页</li>
+        <li>最近核对 2026-11-06 10:40</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>字段口径</h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);margin:0">发帖时间取正文，抓取时间取快照页头，存档时间取第三方记录。三者不同源，分别登记，不取平均。</p>
+    </div>
+  </aside>
+</div>
+
+<!-- 页脚 -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="bname">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#e8b04b"/>
+            <circle cx="27" cy="27" r="11" fill="none" stroke="#1b2838" stroke-width="5"/>
+            <line x1="35" y1="35" x2="48" y2="48" stroke="#1b2838" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+          童颜yandex
+        </span>
+        <p>记录图像搜索结果的地址、快照与时间，供逐条复核。所有条目为示例数据，用于演示登记口径。</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h4>内容</h4>
+          <ul>
+            <li><a href="/#overview">领域概览</a></li>
+            <li><a href="/#picks">精选内容推荐</a></li>
+            <li><a href="/#deep">深度解析</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>台账</h4>
+          <ul>
+            <li><a href="/#updates">最新更新</a></li>
+            <li><a href="/#rank">完整度榜</a></li>
+            <li><a href="/#channels">分类入口</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>帮助</h4>
+          <ul>
+            <li><a href="/#guide">体验指南</a></li>
+            <li><a href="/#faq">常见问答</a></li>
+            <li><a href="/#voices">用户评论</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span class="upd">页面更新时间 2026-11-06，对应更新项：缩略图失效抽样 42 条、镜像站可达性记录。</span>
+      <span>© 2026 童颜yandex · 示例数据，仅用于展示登记与方法说明</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn = document.getElementById('menuBtn');
+  var nav = document.getElementById('mainNav');
+  if(menuBtn && nav){
+    menuBtn.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 720){
+        nav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var form = document.getElementById('searchForm');
+  var input = document.getElementById('searchInput');
+  var feedback = document.getElementById('searchFeedback');
+  var main = document.getElementById('main');
+
+  if(form && input){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var q = input.value.trim();
+      if(!q){
+        feedback.innerHTML = '<span>请输入关键词，例如：缩略图、快照、相册 ID。</span>';
+        return;
+      }
+      var blocks = main.querySelectorAll('section.block');
+      var hits = [];
+      blocks.forEach(function(sec){
+        if(sec.textContent.indexOf(q) !== -1){
+          hits.push(sec);
+        }
+      });
+      if(hits.length === 0){
+        feedback.innerHTML = '<span>没有找到与“' + q.replace(/[<>&]/g,'') + '”相关的板块，可试试：缩略图、快照、相册、排名、镜像。</span>';
+      }else{
+        feedback.innerHTML = '<span>找到 ' + hits.length + ' 个相关板块，已定位到第一个。</span>';
+        hits[0].scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  }
+
+  var toTop = document.getElementById('toTop');
+  if(toTop){
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 560){
+        toTop.classList.add('show');
+      }else{
+        toTop.classList.remove('show');
+      }
+    }, {passive:true});
+    toTop.addEventListener('click', function(){
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  }
+
+  var sideLinks = document.querySelectorAll('#sideNav a');
+  var sections = document.querySelectorAll('main section.block');
+  if(sideLinks.length && sections.length && 'IntersectionObserver' in window){
+    var map = {};
+    sideLinks.forEach(function(a){
+      var id = a.getAttribute('href').replace('/#','');
+      map[id] = a;
+    });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var a = map[en.target.id];
+        if(!a) return;
+        if(en.isIntersecting){
+          sideLinks.forEach(function(x){ x.classList.remove('current'); });
+          a.classList.add('current');
+        }
+      });
+    }, {rootMargin:'-120px 0px -60% 0px', threshold:0});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+})();
+</script>
+</body>
+      </html>
